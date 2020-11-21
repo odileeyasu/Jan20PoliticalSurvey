@@ -1,5 +1,5 @@
 --- 
-title: "Exploratory Data Anslysis and Visualization: Jan 2020 Political Survey by Pew Research Center"
+title: "Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020"
 author: "Jingyi An, Tingyi Lu"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
