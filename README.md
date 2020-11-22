@@ -2,7 +2,7 @@
 
 This repository is created for course 5702 Final Project. 
 The project is about conducting exploratory data analysis and visualization on the January 2020 Political Survey by Pew Research Center.
-Main contributors are Jingyi An, Tingyi Lu.
+Main contributors are Jingyi An (ja3494), Tingyi Lu (tl3025).
 
 ## Template 
 
