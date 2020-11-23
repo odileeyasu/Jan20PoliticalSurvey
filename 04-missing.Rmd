@@ -1,1 +1,35 @@
 # Missing values
+
+```{r libraries}
+library(foreign)
+library(mi)
+library(ggplot2)
+library(extracat)
+```
+
+```{r import data and visualize ma}
+politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
+
+# missing values
+x <- missing_data.frame(politics)
+```
+Using the `missing_data.frame` function from package `mi`, we find the above results have really clear patterns in the level of missingness. All variables in sharing the same missing patterns have a similar name, with the first half indicating the question number, and the second half displaying a letter with either `f1` or `f2`. It is worthwhile to look at how the questionnaire is formed to understand the patterns of missing values.
+
+
+```{r}
+image(x)
+```
+
+The `mi` package also gives a visualization of missing values in the data frame. Below, we also utilzie another package `extracat` to visualize missing values across rows and columns.
+
+```{r using extracat}
+visna(politics)
+```
+
+
+Based on the two graphs above, we can observe some big clusters of missing values (multiple columns) and some individual columns of missing values. Since each column consists of a single interview question, this basically indicates a great number of no-response to particular questions and has something to do with the survey methodology. After taking a closer look, we find the following insights on missing values:
+
+1. There are *if-else* flows in the formation of survey questions, meaning that some questions were only asked if the respondent selects a particular answer. For instance, in the question `q2` about whether or not the respondent approves the way Donald Trump is handling his job as President, the following question `q2a` about how strongly the respondent approves or disapproves it was only asked to those who gave an affirmative answer (approve or disapprove) to `q2`, leaving those who refused to answer `q2` a missing value in `q2a`.
+
+2. The survey is divided into form 1 and form 2 respondents, each a random half sample. This is the reason why there are big clusters of missing-value columns. For every question that has a notation of either "F1" or "F2", for instance, variable `q3f1`, `q3f2`, it only asks half of all survey respondents. This can also explain the "complementary" characteristic of missing-value columns. If we look at the big clusters in the middle of the graph above, if we add the two clusters together, the number of observations with a missing value in should just be the number of all survey respondents. For this kind of questions, we would be comfortable removing missing values in our later visualizations.
+

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 4 Missing values | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 4 Missing values | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</title>
+  <meta name="description" content="Chapter 4 Missing values | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 4 Missing values | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Jingyi An, Tingyi Lu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -68,7 +69,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">EDAV: Jan, 2020 Political Survey</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -89,7 +90,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</a>
           </h1>
         </div>
 
@@ -97,8 +98,98 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="missing-values" class="section level1" number="4">
+<div id="missing-values" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
+##  Please verify whether they are in fact logically distinct variables.
+##       [,1]     [,2]    
+##  [1,] &quot;q3f2&quot;   &quot;q5f2&quot;  
+##  [2,] &quot;q3f2&quot;   &quot;q16f2&quot; 
+##  [3,] &quot;q3f2&quot;   &quot;q31f2&quot; 
+##  [4,] &quot;q3f2&quot;   &quot;q60nf2&quot;
+##  [5,] &quot;q3f2&quot;   &quot;q60of2&quot;
+##  [6,] &quot;q3f2&quot;   &quot;q60pf2&quot;
+##  [7,] &quot;q3f2&quot;   &quot;q60qf2&quot;
+##  [8,] &quot;q3f2&quot;   &quot;q60rf2&quot;
+##  [9,] &quot;q3f2&quot;   &quot;q60sf2&quot;
+## [10,] &quot;q3f2&quot;   &quot;q60tf2&quot;
+## [11,] &quot;q3f2&quot;   &quot;q60uf2&quot;
+## [12,] &quot;q3f2&quot;   &quot;q60wf2&quot;
+## [13,] &quot;q5f2&quot;   &quot;q16f2&quot; 
+## [14,] &quot;q5f2&quot;   &quot;q31f2&quot; 
+## [15,] &quot;q5f2&quot;   &quot;q60nf2&quot;
+## [16,] &quot;q5f2&quot;   &quot;q60of2&quot;
+## [17,] &quot;q5f2&quot;   &quot;q60pf2&quot;
+## [18,] &quot;q5f2&quot;   &quot;q60qf2&quot;
+## [19,] &quot;q5f2&quot;   &quot;q60rf2&quot;
+## [20,] &quot;q5f2&quot;   &quot;q60sf2&quot;
+## [21,] &quot;q5f2&quot;   &quot;q60tf2&quot;
+## [22,] &quot;q5f2&quot;   &quot;q60uf2&quot;
+## [23,] &quot;q5f2&quot;   &quot;q60wf2&quot;
+## [24,] &quot;q16f2&quot;  &quot;q31f2&quot; 
+## [25,] &quot;q16f2&quot;  &quot;q60nf2&quot;
+## [26,] &quot;q16f2&quot;  &quot;q60of2&quot;
+## [27,] &quot;q16f2&quot;  &quot;q60pf2&quot;
+## [28,] &quot;q16f2&quot;  &quot;q60qf2&quot;
+## [29,] &quot;q16f2&quot;  &quot;q60rf2&quot;
+## [30,] &quot;q16f2&quot;  &quot;q60sf2&quot;
+## [31,] &quot;q16f2&quot;  &quot;q60tf2&quot;
+## [32,] &quot;q16f2&quot;  &quot;q60uf2&quot;
+## [33,] &quot;q16f2&quot;  &quot;q60wf2&quot;
+## [34,] &quot;q31f2&quot;  &quot;q60nf2&quot;
+## [35,] &quot;q31f2&quot;  &quot;q60of2&quot;
+## [36,] &quot;q31f2&quot;  &quot;q60pf2&quot;
+## [37,] &quot;q31f2&quot;  &quot;q60qf2&quot;
+## [38,] &quot;q31f2&quot;  &quot;q60rf2&quot;
+## [39,] &quot;q31f2&quot;  &quot;q60sf2&quot;
+## [40,] &quot;q31f2&quot;  &quot;q60tf2&quot;
+## [41,] &quot;q31f2&quot;  &quot;q60uf2&quot;
+## [42,] &quot;q31f2&quot;  &quot;q60wf2&quot;
+## [43,] &quot;q60nf2&quot; &quot;q60of2&quot;
+## [44,] &quot;q60nf2&quot; &quot;q60pf2&quot;
+## [45,] &quot;q60nf2&quot; &quot;q60qf2&quot;
+## [46,] &quot;q60nf2&quot; &quot;q60rf2&quot;
+## [47,] &quot;q60nf2&quot; &quot;q60sf2&quot;
+## [48,] &quot;q60nf2&quot; &quot;q60tf2&quot;
+## [49,] &quot;q60nf2&quot; &quot;q60uf2&quot;
+## [50,] &quot;q60nf2&quot; &quot;q60wf2&quot;
+## [51,] &quot;q60of2&quot; &quot;q60pf2&quot;
+## [52,] &quot;q60of2&quot; &quot;q60qf2&quot;
+## [53,] &quot;q60of2&quot; &quot;q60rf2&quot;
+## [54,] &quot;q60of2&quot; &quot;q60sf2&quot;
+## [55,] &quot;q60of2&quot; &quot;q60tf2&quot;
+## [56,] &quot;q60of2&quot; &quot;q60uf2&quot;
+## [57,] &quot;q60of2&quot; &quot;q60wf2&quot;
+## [58,] &quot;q60pf2&quot; &quot;q60qf2&quot;
+## [59,] &quot;q60pf2&quot; &quot;q60rf2&quot;
+## [60,] &quot;q60pf2&quot; &quot;q60sf2&quot;
+## [61,] &quot;q60pf2&quot; &quot;q60tf2&quot;
+## [62,] &quot;q60pf2&quot; &quot;q60uf2&quot;
+## [63,] &quot;q60pf2&quot; &quot;q60wf2&quot;
+## [64,] &quot;q60qf2&quot; &quot;q60rf2&quot;
+## [65,] &quot;q60qf2&quot; &quot;q60sf2&quot;
+## [66,] &quot;q60qf2&quot; &quot;q60tf2&quot;
+## [67,] &quot;q60qf2&quot; &quot;q60uf2&quot;
+## [68,] &quot;q60qf2&quot; &quot;q60wf2&quot;
+## [69,] &quot;q60rf2&quot; &quot;q60sf2&quot;
+## [70,] &quot;q60rf2&quot; &quot;q60tf2&quot;
+## [71,] &quot;q60rf2&quot; &quot;q60uf2&quot;
+## [72,] &quot;q60rf2&quot; &quot;q60wf2&quot;
+## [73,] &quot;q60sf2&quot; &quot;q60tf2&quot;
+## [74,] &quot;q60sf2&quot; &quot;q60uf2&quot;
+## [75,] &quot;q60sf2&quot; &quot;q60wf2&quot;
+## [76,] &quot;q60tf2&quot; &quot;q60uf2&quot;
+## [77,] &quot;q60tf2&quot; &quot;q60wf2&quot;
+## [78,] &quot;q60uf2&quot; &quot;q60wf2&quot;</code></pre>
+<p>Using the <code>missing_data.frame</code> function from package <code>mi</code>, we find the above results have really clear patterns in the level of missingness. All variables in sharing the same missing patterns have a similar name, with the first half indicating the question number, and the second half displaying a letter with either <code>f1</code> or <code>f2</code>. It is worthwhile to look at how the questionnaire is formed to understand the patterns of missing values.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The <code>mi</code> package also gives a visualization of missing values in the data frame. Below, we also utilzie another package <code>extracat</code> to visualize missing values across rows and columns.</p>
+<p><img src="finalproj_files/figure-html/using%20extracat-1.png" width="672" /></p>
+<p>Based on the two graphs above, we can observe some big clusters of missing values (multiple columns) and some individual columns of missing values. Since each column consists of a single interview question, this basically indicates a great number of no-response to particular questions and has something to do with the survey methodology. After taking a closer look, we find the following insights on missing values:</p>
+<ol style="list-style-type: decimal">
+<li><p>There are <em>if-else</em> flows in the formation of survey questions, meaning that some questions were only asked if the respondent selects a particular answer. For instance, in the question <code>q2</code> about whether or not the respondent approves the way Donald Trump is handling his job as President, the following question <code>q2a</code> about how strongly the respondent approves or disapproves it was only asked to those who gave an affirmative answer (approve or disapprove) to <code>q2</code>, leaving those who refused to answer <code>q2</code> a missing value in <code>q2a</code>.</p></li>
+<li><p>The survey is divided into form 1 and form 2 respondents, each a random half sample. This is the reason why there are big clusters of missing-value columns. For every question that has a notation of either “F1” or “F2”, for instance, variable <code>q3f1</code>, <code>q3f2</code>, it only asks half of all survey respondents. This can also explain the “complementary” characteristic of missing-value columns. If we look at the big clusters in the middle of the graph above, if we add the two clusters together, the number of observations with a missing value in should just be the number of all survey respondents. For this kind of questions, we would be comfortable removing missing values in our later visualizations.</p></li>
+</ol>
 
 </div>
             </section>
@@ -138,7 +229,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/04-missing.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/edit/main/04-missing.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +237,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/04-missing.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/blob/main/04-missing.Rmd",
 "text": null
 },
 "download": null,
