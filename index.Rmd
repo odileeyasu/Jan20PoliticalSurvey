@@ -7,3 +7,14 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+In midst of global attentions to the 2020 U.S. Presidential Election results, there are more and more ongoing discussions on today's American political landscape. Also being fortunate to witness this election from the beginning to the end, our team has long been curious about what today's American public's political opinions are and how these political opinions tied with multiple aspects of American life. Therefore, we picked up this topic for our final project and hope to take a small glance on what we're curious about through exploratory data analysis and visualization.
+
+We propose the following questions to answer:
+
+a)  What are democrats' and republicans' opinions on different political matters? What can we conclude about the political ideologies of different parties?
+  
+  
+b)  What are some noticeable characteristics of those who refused to certain interview questions?
+  
+  
+c)  Are political affiliations associated with the level of education, religious beliefs, gender, or income level?
