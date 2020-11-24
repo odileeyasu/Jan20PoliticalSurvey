@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 2 Data sources | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 2 Data sources | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</title>
+  <meta name="description" content="Chapter 2 Data sources | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 2 Data sources | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Jingyi An, Tingyi Lu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -68,7 +69,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">EDAV: Jan, 2020 Political Survey</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -89,7 +90,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</a>
           </h1>
         </div>
 
@@ -97,8 +98,12 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1" number="2">
+<div id="data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<p>This dataset is from telephone interviews of the January 2020 Political Survey conducted by Abt Associates and submitted to the Pew Research Center from January 8th to January 13th, 2020. The dataset contains information gathered from a representative sample 1,504 adults living in the United States. These adults were sampled from a population of people aged 18 and over, living in the US, and with access to either a landline or a cell phone. These samples were provided by Survey Sampling International. The numbers from the landline samples were obtained by randomly drawing area code + exchange + two-digit block numbers, and the rest who have access to both landlines and cell phones may still be possible to be drawn during sampling process of cellular samples. Landline numbers drawn with an exchange in a high density Hispanic area or associated with a Hispanic surname were flagged by Marketing Systems Group to be assigned to bilingual interviewers. The interviews were conducted in both English and Spanish, depending on the language preferences of the interviewees. The questionnaire was developed by the Pew Research Center in consultation with Abt Associates, and was carefully pretested by experienced interviewers to judge the quality of the answers and how well have the interviewees understood the questions.</p>
+<p>During the interviewing process, numbers were called at most seven times before anybody picks up the phone. The Hispanic-flagged sample records and Spanish language callbacks were given three more additional call attempts. All call attempts were made at different time to ensure maximum possibility of getting picked up. All respondents who completed the survey were awarded a mash incentive of $5 for their participation. There were two weights created for this survey to address the probabilities of selection associated with the number of family members in a household and the overall telephone usage. The second stage weighting was to balance the samples to match national population parameters, such as sex, age, education, etc.</p>
+<p>The raw dataset contains in total 115 columns and about 1,500 observations. Among the 115 variables, along with the basic information of the interviewee, were answers to all questions of the questionnaire. Almost all variables were regarded as numeric variables, yet as the questions were qualitative, there would be type transformation of data needed in the following investigation of the dataset. Furthermore, many variables contain more than half missing values out of all observations, which will be further explained in later sections. Additionally, our investigation will not be using all available variables in the dataset. A selection of variables will be made based on the research questions that we hope to answer.</p>
+<p>We are also aware of potential sources of bias for a survey investigation like this. As reported in the survey’s methodology, there is random sampling error, and the margin of error is estimated to be +- 2.91 percentage points. In addition, other errors may include response bias, reporting inaccuracy, or misunderstanding of question wording, which may potentially affect the quality of the survey results. Being aware of these issues, we’ll also process the data with caution.</p>
 
 </div>
             </section>
@@ -138,7 +143,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/02-data.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/edit/main/02-data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +151,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/02-data.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/blob/main/02-data.Rmd",
 "text": null
 },
 "download": null,
