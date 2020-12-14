@@ -17,7 +17,8 @@ politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.d
 
 In this section, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
 
-1. *Opinions of people identified with different parties on different matters*
+1. **Opinions of people identified with different parties on different matters**
+(a) *Conflicts between different social groups in America*
 ```{r select q10 and PARTY}
 conflicts <- politics[,c("party","q10a","q10b","q10c","q10d","q10e")]
 colnames(conflicts) <- c("Party", 
@@ -65,6 +66,8 @@ ggplot(conflicts_summary, aes(Question, Prop, fill = Response)) +
   scale_fill_brewer(type = "div", palette = "RdBu") + # use a diverging fill
   coord_flip() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  facet_wrap(.~Party, nrow = 3)
+  facet_wrap(.~Party, nrow = 3) +
+  ggtitle("How do you view the degree of conflicts between each pair of groups?",
+          subtitle = "People identified with 3 major parties on conflicts between 5 opposing social groups")
 ```
 
