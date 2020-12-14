@@ -1,6 +1,6 @@
 # Results
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 5, fig.width = 8)
 ```
 
 ```{r libraries}
@@ -58,15 +58,17 @@ likert_theme <- theme_gray() +
 
 ggplot(conflicts_summary, aes(Question, Prop, fill = Response)) +
   likert_theme + 
-  theme(legend.position = "bottom") +
-  geom_col(position = "fill") +
+  theme(axis.title = element_blank(),
+        panel.background = element_blank(),
+        legend.position = "none") +
+  geom_col() +
   geom_text(aes(Question, Prop, label = as.integer(100*Prop)), # add percentage
             position = position_stack(vjust = .5),
             fontface = "bold") +
-  scale_fill_brewer(type = "div", palette = "RdBu") + # use a diverging fill
+  scale_fill_brewer(type = "div") + # use a diverging fill
   coord_flip() +
   guides(fill = guide_legend(reverse = TRUE)) +
-  facet_wrap(.~Party, nrow = 3) +
+  facet_grid(Party~Response) +
   ggtitle("How do you view the degree of conflicts between each pair of groups?",
           subtitle = "People identified with 3 major parties on conflicts between 5 opposing social groups")
 ```
