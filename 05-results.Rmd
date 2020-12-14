@@ -1,1 +1,70 @@
 # Results
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8)
+```
+
+```{r libraries}
+library(foreign)
+library(mi)
+library(ggplot2)
+library(extracat)
+library(tidyverse)
+```
+
+```{r read file}
+politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
+```
+
+In this section, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
+
+1. *Opinions of people identified with different parties on different matters*
+```{r select q10 and PARTY}
+conflicts <- politics[,c("party","q10a","q10b","q10c","q10d","q10e")]
+colnames(conflicts) <- c("Party", 
+                         "Poor and Rich", 
+                         "Black and White", 
+                         "People in Cities and in Rurals", 
+                         "Young and Old", 
+                         "Democrats and Republicans")
+conflicts_tidy <- pivot_longer(conflicts, !Party, 
+                               names_to = "Question", 
+                               values_to = "Response")
+conflicts_tidy <- conflicts_tidy[conflicts_tidy$Party=="Republican" |
+                                   conflicts_tidy$Party == "Democrat" |
+                                   conflicts_tidy$Party == "Independent",]
+conflicts_tidy <- conflicts_tidy[conflicts_tidy$Response == "Very strong conflicts"|
+                                   conflicts_tidy$Response == "Strong conflicts"|
+                                    conflicts_tidy$Response == "Not very strong conflicts"|
+                                     conflicts_tidy$Response == "There are not conflicts",]
+conflicts_summary <- conflicts_tidy %>%
+  group_by(Party, Question, Response) %>%
+  summarize(Freq = n()) %>%
+  mutate(Prop = Freq/sum(Freq))
+```
+```{r plotting}
+likert_theme <- theme_gray() +
+  theme(text = element_text(size = 11),
+        plot.title = element_text(size = 13, face = "bold"), 
+        plot.subtitle = element_text(face = "italic"),
+        legend.title = element_blank(),
+        legend.key.size = unit(.7, "line"),
+        legend.background = element_rect(fill = "grey90"),
+        panel.grid = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        panel.background = element_blank())
+
+ggplot(conflicts_summary, aes(Question, Prop, fill = Response)) +
+  likert_theme + 
+  theme(legend.position = "bottom") +
+  geom_col(position = "fill") +
+  geom_text(aes(Question, Prop, label = as.integer(100*Prop)), # add percentage
+            position = position_stack(vjust = .5),
+            fontface = "bold") +
+  scale_fill_brewer(type = "div", palette = "RdBu") + # use a diverging fill
+  coord_flip() +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  facet_wrap(.~Party, nrow = 3)
+```
+
