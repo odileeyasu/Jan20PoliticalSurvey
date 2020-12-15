@@ -54,7 +54,7 @@ conflicts_summary <- conflicts_tidy %>%
 ```
 ```{r plot conflicts}
 likert_theme <- theme_gray() +
-  theme(text = element_text(size = 9),
+  theme(text = element_text(size = 10),
         plot.title = element_text(size = 11, face = "bold"), 
         plot.subtitle = element_text(face = "italic"),
         legend.title = element_blank(),
@@ -116,13 +116,14 @@ levels(stopics$q45)<- c("Strongly favor",
 
 colnames(stopics) <- c("Party",
                        '"Medicare for all" replace private insurance',
-                       "Free tuition at public colleges and universities\n to all American students",
+                       "Free tuition at public colleges and universities to all American students",
                        "Death penalty for persons convicted of murder")
-
 
 stopics_tidy <- pivot_longer(stopics,!Party,
                              names_to = "Question", 
                              values_to = "Response")
+stopics_tidy$Question<-as.factor(stopics_tidy$Question)
+stopics_tidy$Party <- relevel(stopics_tidy$Party,"Republican","Independent","Democrat")
 stopics_summary <- stopics_tidy %>%
   group_by(Party, Question, Response) %>%
   summarize(Freq = n()) %>%
@@ -134,13 +135,24 @@ opposes <- stopics_summary[stopics_summary$Response=="Strongly oppose"|
                              stopics_summary$Response=="Somewhat oppose",]
 supports <- stopics_summary[stopics_summary$Response=="Strongly favor"|
                              stopics_summary$Response=="Somewhat favor",]
-levels(opposes$Response)
-
 ggplot() +
-  likert_theme+
-  geom_bar(data=supports, aes(x=Question, y=Prop, fill = Response),
+  theme_gray() +
+  theme(text = element_text(size = 10),
+        plot.title = element_text(size = 11, face = "bold"), 
+        plot.subtitle = element_text(face = "italic"),
+        legend.title = element_blank(),
+        legend.key.size = unit(.7, "line"),
+        axis.title = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.background = element_rect(fill="grey98"),
+        strip.background = element_blank(),
+        strip.text.x = element_text(size=10, face = "italic"),
+        panel.spacing.x = unit(0,"cm"),
+        panel.spacing.y = unit(.7,"cm")) +
+  geom_bar(data=supports, aes(x=Party, y=Prop, fill = Response),
            stat = "identity", position = "stack") +
-  geom_bar(data=opposes, aes(x=Question, y=-Prop, fill = fct_rev(Response)),
+  geom_bar(data=opposes, aes(x=Party, y=-Prop, fill = fct_rev(Response)),
            stat = "identity", position = "stack") +
   coord_flip() +
   scale_fill_manual(breaks = c("Strongly oppose", "Somewhat oppose", 
@@ -148,9 +160,14 @@ ggplot() +
                     values = c("#CA0020", "#F4A582", "#92C5DE", "#0571B0"),
                     labels = c("Strongly oppose", "Somewhat oppose", 
                                   "Somewhat favor", "Strongly favor")) +
-  facet_wrap(.~Party, nrow = 3) +
-  ggtitle("\nDemocrats and Republicans exhibit opposing views on debating topics like \nfree tuition, Medicare, and death penalty",
-          subtitle = "Replies to the question: Would you strongly favor, somewhat favor, somewhat oppose, or \nstrongly oppose each of the following question?\n\n")
+  facet_wrap(.~Question, nrow = 3) +
+  xlab("") +
+  scale_y_continuous(breaks = seq(-.8, .8, .2), labels = c("80%", "60%",
+                                                           "40%","20%", "0%",
+                                                          "20%", "40%", "60%",
+                                                          "80%")) +
+  ggtitle("\nDemocrats and Republicans show opposing views on topic about free tuition, Medicare, and death penalty",
+          subtitle = "Replies to the question: Would you strongly favor, somewhat favor, somewhat oppose, or strongly oppose ... ?\n")
 ```
 
 
