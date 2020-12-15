@@ -5,3 +5,6 @@ missing-values
 results
 interactive-component
 conclusion
+opinions-of-people-identified-with-different-parties-on-different-matters
+conflicts-between-different-social-groups-in-america
+section

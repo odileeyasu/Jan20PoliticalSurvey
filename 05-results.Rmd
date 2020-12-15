@@ -1,6 +1,6 @@
 # Results
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 5, fig.width = 8)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8)
 ```
 
 ```{r libraries}
@@ -9,22 +9,32 @@ library(mi)
 library(ggplot2)
 library(extracat)
 library(tidyverse)
+library(RColorBrewer)
 ```
 
 ```{r read file}
 politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
 ```
 
-In this section, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
+In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
 
-1. **Opinions of people identified with different parties on different matters**
-(a) *Conflicts between different social groups in America*
+## **Opinions of people identified with different parties on different matters**
+
+As we mentioned earlier in the introduction and data chapter, this January 2020 Political Survey conducted by Pew Research Center primarily surveys American people with a set of comprehensive political questions that encompass multiple aspects of the American politics. The first question is mainly about opinions of respondents identified with different political parties, and we hope to find out the primary political interests of each party and how their opinions compare on different political-relevant matters. This section would go over multiple social and political topics that were asked for respondents' opinions. 
+
+### *Conflicts between different social groups in America*
+
+For this topic, we choose the variables that document the political party the respondent identifies with and the respondent's opinion on how they view the level of conflicts between the following opposing groups: i) Poor people and rich people ii) Black people and white people iii) People who live in cities and people who live in rural areas iv) Young people and older people v) Democrats and Republicans. 
+
+We'll use faceted bar chart to visualize the findings for this matter. In addition, for the cleanness of our analysis and visualization, we removed people who were not clear about their party identification (refused or not sure) and who did not respond with a clear answer on the level of conflicts they perceive between each opposing social group (refused/Can't choose).
+
+
 ```{r select q10 and PARTY}
 conflicts <- politics[,c("party","q10a","q10b","q10c","q10d","q10e")]
 colnames(conflicts) <- c("Party", 
                          "Poor and Rich", 
                          "Black and White", 
-                         "People in Cities and in Rurals", 
+                         "People in Cities and in Rural Areas", 
                          "Young and Old", 
                          "Democrats and Republicans")
 conflicts_tidy <- pivot_longer(conflicts, !Party, 
@@ -44,32 +54,53 @@ conflicts_summary <- conflicts_tidy %>%
 ```
 ```{r plotting}
 likert_theme <- theme_gray() +
-  theme(text = element_text(size = 11),
-        plot.title = element_text(size = 13, face = "bold"), 
+  theme(text = element_text(size = 9),
+        plot.title = element_text(size = 11, face = "bold"), 
         plot.subtitle = element_text(face = "italic"),
         legend.title = element_blank(),
         legend.key.size = unit(.7, "line"),
         legend.background = element_rect(fill = "grey90"),
-        panel.grid = element_blank(),
         axis.text.x = element_blank(),
         axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        panel.background = element_blank())
-
-ggplot(conflicts_summary, aes(Question, Prop, fill = Response)) +
+        axis.title = element_blank())
+colors = brewer.pal(n=4,name="PuRd")
+ggplot(conflicts_summary, aes(Question, Prop, fill = fct_rev(Response))) +
   likert_theme + 
   theme(axis.title = element_blank(),
-        panel.background = element_blank(),
-        legend.position = "none") +
+        legend.position = "none",
+        panel.grid = element_blank(),
+        panel.background = element_rect(fill="grey98"),
+        strip.background = element_blank(),
+        strip.text.y = element_text(face = "bold",size=11),
+        strip.text.x = element_text(size=10),
+        panel.spacing.x = unit(0,"cm"),
+        panel.spacing.y = unit(.7,"cm")) +
   geom_col() +
-  geom_text(aes(Question, Prop, label = as.integer(100*Prop)), # add percentage
+  geom_text(aes(Question, Prop, label = paste0(as.integer(100*Prop),"%")), # add percentage
             position = position_stack(vjust = .5),
-            fontface = "bold") +
-  scale_fill_brewer(type = "div") + # use a diverging fill
+            size = 2.5) +
+  scale_fill_brewer(type = "seq", palette = "Oranges") + # use a diverging fill
   coord_flip() +
   guides(fill = guide_legend(reverse = TRUE)) +
   facet_grid(Party~Response) +
-  ggtitle("How do you view the degree of conflicts between each pair of groups?",
-          subtitle = "People identified with 3 major parties on conflicts between 5 opposing social groups")
+  ggtitle("\nA majority of Americans consider there are VERY STRONG conflicts between\nDemocrats and Republicans",
+          subtitle = "Replies to the question: In your opinion, in AMERICA, are conflicts between ... very strong, strong, \nnot very strong, or there are not conflicts?\n\n")
 ```
+
+From the graph above, we can immediately conclude that a majority of respondents, no matter what party they identified with, believe that there is at least some level of conflicts between each of the 5 opposing groups. Among all 5 groups, (Young, Old) and (People in cities, People in rural areas) are the 2 pairs with least perceived conflicts among all 5, with more than half of the respondents from each party selecting "not very strong conflicts" or "there are no conflicts". On the contrary,the conflicts between Democrats and Republicans are perceived as the most strong, with more than **70%** of respondents from each political party replying with "very strong conflicts". It's interesting to see that, both the actors of the conflict, Democrats and Republicans, and the bystanders, the political Independents, share the same opinion on this matter.
+
+Differences among the 3 political groups:
+
+
+1. Compared to the other 2 groups, Republicans, in general, perceive less strong conflicts between Poor and Rich.
+
+2. Democrats perceive the conflicts between Black and White people to be a lot stronger than the other 2 groups do.
+
+
+### **
+
+
+
+
+
 
