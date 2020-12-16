@@ -24,7 +24,7 @@
 <meta name="author" content="Jingyi An, Tingyi Lu" />
 
 
-<meta name="date" content="2020-12-15" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -77,10 +77,11 @@
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#opinions-of-people-identified-with-different-parties-on-different-matters"><i class="fa fa-check"></i><b>5.1</b> <strong>Opinions of people identified with different parties on different matters</strong></a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#opinions-of-people-identified-with-different-parties-on-different-matters"><i class="fa fa-check"></i><b>5.1</b> Opinions of people identified with different parties on different matters</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#conflicts-between-different-social-groups-in-america"><i class="fa fa-check"></i><b>5.1.1</b> <em>Conflicts between different social groups in America</em></a></li>
 <li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#other-controversial-social-topics"><i class="fa fa-check"></i><b>5.1.2</b> <em>Other Controversial Social Topics</em></a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#political-affliations-socio-economic-status-sex-race-and-religious-beliefs"><i class="fa fa-check"></i><b>5.2</b> Political Affliations, Socio-economic Status, Sex, Race, and Religious Beliefs</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -107,13 +108,13 @@
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <p>In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions.</p>
 <div id="opinions-of-people-identified-with-different-parties-on-different-matters" class="section level2">
-<h2><span class="header-section-number">5.1</span> <strong>Opinions of people identified with different parties on different matters</strong></h2>
+<h2><span class="header-section-number">5.1</span> Opinions of people identified with different parties on different matters</h2>
 <p>As we mentioned earlier in the introduction and data chapter, this January 2020 Political Survey conducted by Pew Research Center primarily surveys American people with a set of comprehensive political questions that encompass multiple aspects of the American politics. The first question is mainly about opinions of respondents identified with different political parties, and we hope to find out the primary political interests of each party and how their opinions compare on different political-relevant matters. This section would go over multiple social and political topics that were asked for respondents’ opinions.</p>
 <div id="conflicts-between-different-social-groups-in-america" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> <em>Conflicts between different social groups in America</em></h3>
 <p>For this topic, we choose the variables that document the political party the respondent identifies with and the respondent’s opinion on how they view the level of conflicts between the following opposing groups: i) Poor people and rich people ii) Black people and white people iii) People who live in cities and people who live in rural areas iv) Young people and older people v) Democrats and Republicans.</p>
 <p>We’ll use faceted bar chart to visualize the findings for this matter. In addition, for the cleanness of our analysis and visualization, we removed people who were not clear about their party identification (refused or not sure) and who did not respond with a clear answer on the level of conflicts they perceive between each opposing social group (refused/Can’t choose).</p>
-<p><img src="finalproj_files/figure-html/plot%20conflicts-1.png" width="768" /></p>
+<p><img src="finalproj_files/figure-html/plot%20conflicts-1.png" width="864" /></p>
 <p>From the graph above, we can immediately conclude that a majority of respondents, no matter what party they identified with, believe that there is at least some level of conflicts between each of the 5 opposing groups. Among all 5 groups, (Young, Old) and (People in cities, People in rural areas) are the 2 pairs with least perceived conflicts among all 5, with more than half of the respondents from each party selecting “not very strong conflicts” or “there are no conflicts”. On the contrary,the conflicts between Democrats and Republicans are perceived as the most strong, with more than <strong>70%</strong> of respondents from each political party replying with “very strong conflicts”. It’s interesting to see that, both the actors of the conflict, Democrats and Republicans, and the bystanders, the political Independents, share the same opinion on this matter.</p>
 <p>Differences among the 3 political groups:</p>
 <ol style="list-style-type: decimal">
@@ -123,10 +124,26 @@
 </div>
 <div id="other-controversial-social-topics" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> <em>Other Controversial Social Topics</em></h3>
-<p><img src="finalproj_files/figure-html/plot%20stopics-1.png" width="768" />
-It’s not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the “Medicare for all” offered by the government, while republicans take the oppositive views on all 3.</p>
-
+<p><img src="finalproj_files/figure-html/plot%20stopics-1.png" width="864" />
+It’s not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the “Medicare for all” offered by the government, while republicans maintain the opposite views on all 3.</p>
 </div>
+</div>
+<div id="political-affliations-socio-economic-status-sex-race-and-religious-beliefs" class="section level2">
+<h2><span class="header-section-number">5.2</span> Political Affliations, Socio-economic Status, Sex, Race, and Religious Beliefs</h2>
+<p><img src="finalproj_files/figure-html/select%20ISEX,%20IRACE1,%20EDUC,%20INCOME-1.png" width="864" /></p>
+<p><img src="finalproj_files/figure-html/race%20and%20party-1.png" width="864" /></p>
+<pre><code>## $Education
+## [1] 1.177739e-28
+## 
+## $Income
+## [1] 4.232888e-08
+## 
+## $Sex
+## [1] 0.1986453
+## 
+## $Race
+## [1] 0.3782994</code></pre>
+
 </div>
 </div>
             </section>

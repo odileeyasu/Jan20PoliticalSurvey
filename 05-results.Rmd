@@ -1,6 +1,6 @@
 # Results
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.width = 9)
 ```
 
 ```{r libraries}
@@ -10,6 +10,7 @@ library(ggplot2)
 library(extracat)
 library(tidyverse)
 library(RColorBrewer)
+library(vcd)
 ```
 
 ```{r read file}
@@ -18,7 +19,7 @@ politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.d
 
 In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
 
-## **Opinions of people identified with different parties on different matters**
+## Opinions of people identified with different parties on different matters
 
 As we mentioned earlier in the introduction and data chapter, this January 2020 Political Survey conducted by Pew Research Center primarily surveys American people with a set of comprehensive political questions that encompass multiple aspects of the American politics. The first question is mainly about opinions of respondents identified with different political parties, and we hope to find out the primary political interests of each party and how their opinions compare on different political-relevant matters. This section would go over multiple social and political topics that were asked for respondents' opinions. 
 
@@ -171,4 +172,83 @@ ggplot() +
           subtitle = "Replies to the question: Would you strongly favor, somewhat favor, somewhat oppose, or strongly oppose ... ?\n")
 ```
 It's not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the "Medicare for all" offered by the government, while republicans maintain the opposite views on all 3.
+
+## Political Affliations, Socio-economic Status, Sex, Race, and Religious Beliefs
+```{r select ISEX, IRACE1, EDUC, INCOME}
+corr <- politics[,c("party","isex","iracem1","educ","income")]
+colnames(corr) <- c("Party", "Sex", "Race", "Education", "Income")
+gender <- corr %>%
+  group_by(Party,Sex) %>%
+  summarize(Freq = n()) %>%
+  mutate(Prop = Freq/sum(Freq))
+
+gender <- gender[!(gender$Party == "VOL) No preference"|
+                   gender$Party == "(VOL) Other party"|
+                   gender$Party == "(VOL) Don't know/Refused"),]
+theme_bar <- theme_gray() +
+  theme(text = element_text(size = 10),
+        plot.title = element_text(size = 13, face = "bold",
+                                  margin = margin(10, 0, 10, 0)), 
+        plot.margin = unit(c(2,0,2,.4), "cm"),
+        plot.title.position = "plot",
+        axis.ticks = element_blank(),
+        plot.subtitle = element_text(face = "italic"),
+        legend.title = element_blank(),
+        legend.key.size = unit(.7, "line"),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_blank(),
+        strip.text.x = element_text(size=10, face = "italic"),
+        panel.spacing.x = unit(0,"cm"),
+        panel.spacing.y = unit(.7,"cm"))
+ggplot(gender) +
+  theme_bar +
+  theme(axis.text.x = element_blank(),
+        legend.position = "top") +
+  geom_bar(aes(Prop, Party, fill=fct_rev(Sex)),stat = "identity") +
+  geom_text(aes(Prop, Party, label = paste0(as.integer(100*Prop),"%")), # add percentage
+            position = position_stack(vjust = .5),
+            size = 3, face = "bold")+
+  scale_fill_brewer(type = "seq", palette = "Pastel1")+
+  ggtitle("Sex doesn't seem to be a factor associated with party affliation",
+          subtitle = "Proportion of Male and Female respondents identified with each of the three are very similar")
+  
+```
+
+
+```{r race and party}
+race <- corr %>%
+  group_by(Party, Race) %>%
+  summarize(Freq = n()) %>%
+  mutate(Prop = Freq/sum(Freq))
+
+race <- race[!(race$Party == "VOL) No preference"|
+                   race$Party == "(VOL) Other party"|
+                   race$Party == "(VOL) Don't know/Refused"),]
+levels(race$Race) <- c("White",
+                       "Black or African-American", 
+                       "Asian or Asian-American",
+                       "Some other race",
+                       "Don't know/Refused")
+ggplot(race) +
+  theme_bar +
+  theme(axis.text.x = element_blank(),
+        legend.position = "none") +
+  geom_bar(aes(Prop, Party, fill=fct_rev(Race)),stat = "identity") +
+  geom_text(aes(Prop, Party, label = paste0(as.integer(100*Prop),"%")), # add percentage
+            position = position_stack(vjust = .5),
+            size = 3, face = "bold")+
+  scale_fill_brewer(type = "seq", palette = "Pastel1") +
+  facet_wrap(.~Race, nrow = 1)+
+  guides(fill = guide_legend(reverse = TRUE)) +
+  ggtitle("Race doesn't seem to be a significant factor associated with party affliation",
+          subtitle = "Proportion of Black respondents identified as Republicans is slightly lower than that of the other two")
+```
+
+```{r chi-square test}
+# run chi-square test
+pvals <- lapply(corr[,-1], function(x) chisq.test(x, y =corr$Party)$p.value)
+pvals[order(unlist(pvals))]
+```
 
