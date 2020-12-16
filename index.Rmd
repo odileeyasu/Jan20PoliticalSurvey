@@ -11,10 +11,10 @@ In midst of global attentions to the 2020 U.S. Presidential Election results, th
 
 We propose the following questions to answer:
 
-a)  What are democrats' and republicans' opinions on different political matters? What can we conclude about the political ideologies of different parties?
+a)  What are opinions of people who identified with different political parties on various political and societal matters? What can we conclude about the political ideologies of different parties?
+
+b)  Are political affiliations associated with the level of education, religious beliefs, gender, or income level?
+  
+c)  What are some noticeable characteristics of those who refused to certain interview questions?
   
   
-b)  What are some noticeable characteristics of those who refused to certain interview questions?
-  
-  
-c)  Are political affiliations associated with the level of education, religious beliefs, gender, or income level?
