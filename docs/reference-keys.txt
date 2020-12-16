@@ -10,3 +10,4 @@ conflicts-between-different-social-groups-in-america
 section
 about-donald-trump-as-the-president-of-the-united-states-of-america
 other-controversial-societal-topics
+other-controversial-social-topics

@@ -95,10 +95,7 @@ Differences among the 3 political groups:
 
 2. Democrats perceive the conflicts between Black and White people to be a lot stronger than the other 2 groups do.
 
-
-### *About Donald Trump as the President of the United States of America*
-
-### *Other Controversial Societal Topics*
+### *Other Controversial Social Topics*
 
 ```{r select party and q40, 41,42,45}
 stopics <- politics[, c("party","q40","q42","q45")]
@@ -122,8 +119,12 @@ colnames(stopics) <- c("Party",
 stopics_tidy <- pivot_longer(stopics,!Party,
                              names_to = "Question", 
                              values_to = "Response")
-stopics_tidy$Question<-as.factor(stopics_tidy$Question)
-stopics_tidy$Party <- relevel(stopics_tidy$Party,"Republican","Independent","Democrat")
+stopics_tidy$Party <- factor(stopics_tidy$Party,
+                              levels= c("Democrat",
+                              "Independent",
+                              "Republican",
+                              "VOL) No preference",
+                              "(VOL) Other party"))
 stopics_summary <- stopics_tidy %>%
   group_by(Party, Question, Response) %>%
   summarize(Freq = n()) %>%
@@ -169,5 +170,5 @@ ggplot() +
   ggtitle("\nDemocrats and Republicans show opposing views on topic about free tuition, Medicare, and death penalty",
           subtitle = "Replies to the question: Would you strongly favor, somewhat favor, somewhat oppose, or strongly oppose ... ?\n")
 ```
-
+It's not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the "Medicare for all" offered by the government, while republicans maintain the opposite views on all 3.
 
