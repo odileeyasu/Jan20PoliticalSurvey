@@ -173,12 +173,12 @@ ggplot() +
 ```
 It's not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the "Medicare for all" offered by the government, while republicans maintain the opposite views on all 3.
 
-## Political Affliations, Sex, Race, and Socio-Economic Status
+## Political Affliations, Sex, Race, and Education
 ```{r select ISEX, IRACE1, EDUC, INCOME}
 corr <- politics[(politics$party == "Democrat"|
                     politics$party == "Republican"),
-                 c("party","isex","iracem1","educ","income")]
-colnames(corr) <- c("Party", "Sex", "Race", "Education", "Income")
+                 c("party","isex","iracem1","educ")]
+colnames(corr) <- c("Party", "Sex", "Race", "Education")
 gender <- corr %>%
   group_by(Sex, Party) %>%
   summarize(Freq = n()) %>%
@@ -248,10 +248,10 @@ education <- corr[!(corr$Education == "(VOL) Don't know/Refused"),]
 
 
 
-levels(education$Education) <- list("No high school diploma" = c("Less than high school (Grades 1-8 or no formal schooling)",
-                                                                        "High school incomplete (Grades 9-11 or Grade 12 with NO diploma)"),
-                                    "High school diploma" = c("High school graduate (Grade 12 with diploma or GED certificate)",
-                                                              "Some college, no degree (includes some community college)"),
+levels(education$Education) <- list("High School or Less" = c("Less than high school (Grades 1-8 or no formal schooling)",
+                                                              "High school incomplete (Grades 9-11 or Grade 12 with NO diploma)",
+                                                              "High school graduate (Grade 12 with diploma or GED certificate)"),
+                                    "Some College (No degree)" = c("Some college, no degree (includes some community college)"),
                                     "Associate Degree" = c("Two year associate degree from a college or university"),
                                     "Bachelor's Degree" = c("Four year college or university degree/Bachelor's degree (e.g., BS, BA, AB)",
                                                             "Some postgraduate or professional schooling, no postgraduate degree (e.g. some graduate school)"),
@@ -273,8 +273,8 @@ ggplot(education) +
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1") +
   guides(fill = guide_legend(reverse = TRUE)) +
-  ggtitle("Education levels",
-          subtitle = "")
+  ggtitle("Differences in education may contribute to different party identification",
+          subtitle = "More respondents with bachelor's degree and above identify themselves as Democrats")
 ```
 
 ```{r chi-square test}

@@ -13,3 +13,4 @@ other-controversial-societal-topics
 other-controversial-social-topics
 political-affliations-socio-economic-status-sex-race-and-religious-beliefs
 political-affliations-sex-race-and-socio-economic-status
+political-affliations-sex-race-and-education
