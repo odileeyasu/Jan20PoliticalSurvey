@@ -173,18 +173,18 @@ ggplot() +
 ```
 It's not surprising to see that a majority democrats and republicans disagree on all 3 topics, while independents are taking the middle ground. Democrats are more inclined to reduce death penalty, offer cheap resources for higher education, and replace expensive private insurance with the "Medicare for all" offered by the government, while republicans maintain the opposite views on all 3.
 
-## Political Affliations, Socio-economic Status, Sex, Race, and Religious Beliefs
+## Political Affliations, Sex, Race, and Socio-Economic Status
 ```{r select ISEX, IRACE1, EDUC, INCOME}
-corr <- politics[,c("party","isex","iracem1","educ","income")]
+corr <- politics[(politics$party == "Democrat"|
+                    politics$party == "Republican"),
+                 c("party","isex","iracem1","educ","income")]
 colnames(corr) <- c("Party", "Sex", "Race", "Education", "Income")
 gender <- corr %>%
-  group_by(Party,Sex) %>%
+  group_by(Sex, Party) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 
-gender <- gender[!(gender$Party == "VOL) No preference"|
-                   gender$Party == "(VOL) Other party"|
-                   gender$Party == "(VOL) Don't know/Refused"),]
+
 theme_bar <- theme_gray() +
   theme(text = element_text(size = 10),
         plot.title = element_text(size = 13, face = "bold",
@@ -206,44 +206,75 @@ ggplot(gender) +
   theme_bar +
   theme(axis.text.x = element_blank(),
         legend.position = "top") +
-  geom_bar(aes(Prop, Party, fill=fct_rev(Sex)),stat = "identity") +
-  geom_text(aes(Prop, Party, label = paste0(as.integer(100*Prop),"%")), # add percentage
+  geom_bar(aes(Prop, Sex, fill=fct_rev(Party)),stat = "identity") +
+  geom_text(aes(Prop, Sex, label = paste0(as.integer(100*Prop),"%")), # add percentage
             position = position_stack(vjust = .5),
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1")+
   ggtitle("Sex doesn't seem to be a factor associated with party affliation",
-          subtitle = "Proportion of Male and Female respondents identified with each of the three are very similar")
+          subtitle = "Proportion of Male and Female respondents identified with each party are very similar")
   
 ```
 
 
 ```{r race and party}
 race <- corr %>%
-  group_by(Party, Race) %>%
+  group_by(Race, Party) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 
-race <- race[!(race$Party == "VOL) No preference"|
-                   race$Party == "(VOL) Other party"|
-                   race$Party == "(VOL) Don't know/Refused"),]
 levels(race$Race) <- c("White",
                        "Black or African-American", 
                        "Asian or Asian-American",
                        "Some other race",
                        "Don't know/Refused")
+race <- race[!(race$Race=="Don't know/Refused"),]
+
 ggplot(race) +
   theme_bar +
   theme(axis.text.x = element_blank(),
-        legend.position = "none") +
-  geom_bar(aes(Prop, Party, fill=fct_rev(Race)),stat = "identity") +
-  geom_text(aes(Prop, Party, label = paste0(as.integer(100*Prop),"%")), # add percentage
+        legend.position = "top") +
+  geom_bar(aes(Prop, Race, fill=fct_rev(Party)),stat = "identity") +
+  geom_text(aes(Prop, Race, label = paste0(as.integer(100*Prop),"%")), # add percentage
             position = position_stack(vjust = .5),
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1") +
-  facet_wrap(.~Race, nrow = 1)+
   guides(fill = guide_legend(reverse = TRUE)) +
   ggtitle("Race doesn't seem to be a significant factor associated with party affliation",
-          subtitle = "Proportion of Black respondents identified as Republicans is slightly lower than that of the other two")
+          subtitle = "Proportion of White respondents identified as Republicans is slightly higher than other races")
+```
+```{r}
+education <- corr[!(corr$Education == "(VOL) Don't know/Refused"),]
+
+
+
+levels(education$Education) <- list("No high school diploma" = c("Less than high school (Grades 1-8 or no formal schooling)",
+                                                                        "High school incomplete (Grades 9-11 or Grade 12 with NO diploma)"),
+                                    "High school diploma" = c("High school graduate (Grade 12 with diploma or GED certificate)",
+                                                              "Some college, no degree (includes some community college)"),
+                                    "Associate Degree" = c("Two year associate degree from a college or university"),
+                                    "Bachelor's Degree" = c("Four year college or university degree/Bachelor's degree (e.g., BS, BA, AB)",
+                                                            "Some postgraduate or professional schooling, no postgraduate degree (e.g. some graduate school)"),
+                                    "Postgraduate Degree" = c("Postgraduate or professional degree, including master's, doctorate, medical or law degree (e.g., MA, MS, PhD, MD, JD, gr"))
+education <- education[!(is.na(education$Education)),]
+
+education <- education[!(is.na(education$Education)),] %>%
+  group_by(Education, Party) %>%
+  summarize(Freq = n()) %>%
+  mutate(Prop = Freq/sum(Freq))
+
+ggplot(education) +
+  theme_bar +
+  theme(axis.text.x = element_blank(),
+        legend.position = "top") +
+  geom_bar(aes(Prop, Education, fill=fct_rev(Party)),stat = "identity") +
+  geom_text(aes(Prop, Education, label = paste0(as.integer(100*Prop),"%")), # add percentage
+            position = position_stack(vjust = .5),
+            size = 3, face = "bold")+
+  scale_fill_brewer(type = "seq", palette = "Pastel1") +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  ggtitle("Education levels",
+          subtitle = "")
 ```
 
 ```{r chi-square test}
