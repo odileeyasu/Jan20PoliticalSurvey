@@ -175,7 +175,7 @@ It's not surprising to see that a majority democrats and republicans disagree on
 
 ## Political Affliations, Sex, Race, and Education
 
-In this section, we'll take a look at whether there's any association between political affiliation of a respondent and their sex/race/education. Each of the factors will be examined through percent stacked bar chart to compare difference across the groups. In addition, we'll discuss the limitation of our analysis at the end of this section.
+In this section, we'll take a look at whether there's any association between political affiliation of a respondent and their sex/race/education. Each of the factors will be examined through percent stacked bar chart to compare difference across the groups. For the purpose of our analysis, we removed respondents who did not exhibit a bipolar political interest; in other words, we only included respondents who identified as either a **republican** or **democrat**. In addition, we'll discuss the limitation of our analysis at the end of this section.
 
 ```{r select ISEX, IRACE1, EDUC, INCOME}
 corr <- politics[(politics$party == "Democrat"|
@@ -243,10 +243,12 @@ ggplot(race) +
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1") +
   guides(fill = guide_legend(reverse = TRUE)) +
-  ggtitle("Race doesn't seem to be a significant factor associated with party affliation",
+  ggtitle("Race seems to be a significant factor associated with party affliation",
           subtitle = "Proportion of White respondents identified as Republicans is slightly higher than other races")
 ```
-```{r}
+The graph above shows the proportion of people of each race category identified with a democrat or republican. We can observe that, more than half of the white respondents identified themselves as a republican, while less than half of black respondents or respondents of some other race identified themselves as a republican. The observable disparity may indicate some association between race and party identification, and being white may have some positive association with being republican.
+
+```{r education}
 education <- corr[!(corr$Education == "(VOL) Don't know/Refused"),]
 
 
@@ -279,7 +281,8 @@ ggplot(education) +
   ggtitle("Differences in education may contribute to different party identification",
           subtitle = "More respondents with bachelor's degree and above identify themselves as Democrats")
 ```
-```{r}
+
+```{r look at the sample}
 corr %>%
   group_by(Race) %>%
   summarize(Freq = n())
