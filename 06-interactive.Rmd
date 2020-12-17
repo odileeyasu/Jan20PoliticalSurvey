@@ -1,5 +1,11 @@
 # Interactive component
 
+(**Note: Because of the larger width of our interactive component, we decided to put our interactive component at the bottom of the chapter page. Please scroll down to see our interactive component for the project**).
+
+We chose the first visualization in our results chapter for the interactive component because the faceted bar charts contain a lot of interesting information, and we thought making it an interactive one where users can select which party's opinions to look at would be a good choice.
+
+The faceted bar chart is an interactive one, and it is straightforward to use. A user simply clicks on one of the 3 choices (the texts or the rectangles): republicans, democrats, and independents. The one clicked by the user will have a gray stroke outside the rectangle to indicate the user picked up the selected party to view their opinions, and the bar chart would display the opinions' of people identified with the selected party on how intense the conflicts are between the two groups within each of the 5 pairs: i) Poor people and rich people ii) Black people and white people iii) People who live in cities and people who live in rural areas iv) Young people and older people v) Democrats and Republicans. 
+
 <script src="https://d3js.org/d3.v6.js"></script>
  
 <script>
@@ -26,7 +32,7 @@
   .attr("font-size", "20");
   
   svg.append("text")
-  .text("are conflicts between ... and ... very strong, strong, \nnot very strong, or there are not conflicts?")
+  .text("are conflicts between ... and ... very strong, strong, not very strong, or there are not conflicts?")
     .attr("x","110").attr("y", "95")
     .attr("font-size", "20");
   
