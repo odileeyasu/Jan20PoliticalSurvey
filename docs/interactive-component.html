@@ -127,11 +127,11 @@
     .attr("font-size", "20");
   
   svg.append("text")
-  .text("' opinion,").attr("x","540").attr("y", "70")
+  .text("' opinion,").attr("x","530").attr("y", "70")
   .attr("font-size", "20");
   
   svg.append("text")
-  .text("are conflicts between ... very strong, strong, \nnot very strong, or there are not conflicts?")
+  .text("are conflicts between ... and ... very strong, strong, \nnot very strong, or there are not conflicts?")
     .attr("x","210").attr("y", "95")
     .attr("font-size", "20");
   
@@ -310,7 +310,7 @@
     .attr('y', (d, i) => i * 50 + 200)
     .attr('width', (d) => d*2)
     .attr('height', '35')
-    .attr('fill', '#F5B9B9');
+    .attr('fill', '#E6B0AA');
   
   n.selectAll("text")
     .data(ndata)
@@ -318,7 +318,7 @@
     .append("text")
     .attr('x', d=>d*2+815)
     .attr('y', (d, i) => i * 50 + 222)
-    .attr("fill", "#F5B9B9")
+    .attr("fill", "#E6B0AA")
     .attr("text-anchor","start")
     .text(d=>d+"%");
 
