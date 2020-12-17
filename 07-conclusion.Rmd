@@ -1,2 +1,17 @@
 # Conclusion
 
+
+## Concluding the findings
+From our analysis in chapter 5, we conclude our findings from this January, 2020 political survey dataset as follows:
+
+1) It's clear that democrats and republicans take opposing views on many different societal and political matters, whereas the political independents take the middle ground between the two. A majority of democrats are supporters of accessible education and medicare for all American citizens and oppose death penalty for people convicted of murder, while a majority of republicans are more conservative on the first two proposals and support death penalty for people convicted of murder. These all simply our observations of responses of survey respondents, and it's not clear the reasons why they support or oppose a specific proposal.
+
+2) The conflicts between democrats and republicans are considered the most intense by a majority of Americans regardless of their political affiliations. In addition, democrats perceive more conflicts due to difference in races and disparity in socioeconomic status than republicans and political independents do.
+
+3) While difference in sex doesn't seem to be a significant factor associated with difference in party identification, difference in education levels and races appear to be associated with different party affiliations. 
+
+## Discussing limitations
+We also mention the limitations in our findings in the results chapter. The sample sizes of people coming from certain backgrounds (a particular race, a particular education level) are unbalanced. This would affect the authenticity of our analysis and conclusions. It is important to point out that, any analysis based on a larger, more balanced sample may be more reliable, and we should definitely consider switching to a different data source for relevant analysis in the future.
+
+## Looking into the future
+We believe that public political views are a really interesting topic that worth more analysis from different angles. Considering the limitations with the data and thus may cause flaws in our analysis and conclusions, we should look for a larger and more representative data in the future (e.g. political survey results of the whole year of 2020). In addition, since public political views can shift over time, it is worthwhile to collect public political views from previous years and build time series analysis to see, for instance, how people's views change over time, whether there's a shift in the proportion of people of a particular race group identified with a specific political party, and etc.

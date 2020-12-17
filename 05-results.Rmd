@@ -17,7 +17,13 @@ library(vcd)
 politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
 ```
 
-In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. 
+In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. Below are our questions proposed in the introduction chapter for your reference:
+
+a)  What are opinions of people who identified with different political parties on various political and societal matters? What can we conclude about the political ideologies of different parties?
+
+b)  Are political affiliations associated with the level of education, religious beliefs, gender, or income level?
+  
+c)  What are some noticeable characteristics of those who refused to certain interview questions?
 
 ## Opinions of people identified with different parties on different matters
 
@@ -104,7 +110,14 @@ Differences among the 3 political groups:
 
 2. Democrats perceive the conflicts between Black and White people to be a lot stronger than the other 2 groups do.
 
-### *Other Controversial Social Topics*
+### *Other Debating Social Topics*
+In this subsection, we would be looking at the democrats', republicans', and independents' opinions on each of the following three questions included in the survey, and finding out if there are differences in their opinions on the 3 matters. Below are the survey questions:
+
+1) Would you strongly favor, somewhat favor, somewhat oppose, or strongly oppose a single national health insurance program run by the government, sometimes called “Medicare for all,” that would replace private insurance?
+
+2) Would you strongly favor, somewhat favor, somewhat oppose, or strongly oppose making tuition at public colleges and universities free for all American students?
+
+3) Do you strongly favor, favor, oppose or strongly oppose the death penalty for persons convicted of murder?
 
 ```{r select party and q40, 41,42,45}
 # preprocess data for plotting

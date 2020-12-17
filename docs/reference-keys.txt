@@ -16,3 +16,7 @@ political-affliations-sex-race-and-socio-economic-status
 political-affliations-sex-race-and-education
 discussing-the-limitation-of-the-analysis-in-the-section
 analysis-and-findings
+other-debating-social-topics
+concluding-the-findings
+discussing-limitations
+looking-into-the-future
