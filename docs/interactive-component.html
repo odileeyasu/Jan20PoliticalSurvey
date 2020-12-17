@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Interactive component | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 6 Interactive component | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</title>
+  <meta name="description" content="Chapter 6 Interactive component | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 6 Interactive component | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 6 Interactive component | Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Jingyi An, Tingyi Lu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="results.html"/>
 <link rel="next" href="conclusion.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -68,14 +69,20 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">EDAV: Jan, 2020 Political Survey</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#opinions-of-people-identified-with-different-parties-on-different-matters"><i class="fa fa-check"></i><b>5.1</b> Opinions of people identified with different parties on different matters</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#conflicts-between-different-social-groups-in-america"><i class="fa fa-check"></i><b>5.1.1</b> <em>Conflicts between different social groups in America</em></a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#other-controversial-social-topics"><i class="fa fa-check"></i><b>5.1.2</b> <em>Other Controversial Social Topics</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#political-affliations-sex-race-and-education"><i class="fa fa-check"></i><b>5.2</b> Political Affliations, Sex, Race, and Education</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -89,7 +96,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploratory Data Anslysis and Visualization: Political Survey by Pew Research Center for Jan, 2020</a>
           </h1>
         </div>
 
@@ -97,8 +104,352 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interactive-component" class="section level1" number="6">
+<div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<script src="https://d3js.org/d3.v6.js"></script>
+<script>
+  // Create svg and initial bars
+
+  var svg = d3
+    .select('body')
+    .append('svg')
+    .attr('width', '1000')
+    .attr('height', '1000');
+  
+    svg.append("rect")
+    .attr("x","210").attr("y", "200")
+    .attr("fill", "#F8F9F9")
+    .attr('width', '800')
+    .attr('height','235');
+
+  svg.append("text")
+    .text("In").attr("x","210").attr("y", "70")
+    .attr("font-size", "20");
+  
+  svg.append("text")
+  .text("' opinion,").attr("x","540").attr("y", "70")
+  .attr("font-size", "20");
+  
+  svg.append("text")
+  .text("are conflicts between ... very strong, strong, \nnot very strong, or there are not conflicts?")
+    .attr("x","210").attr("y", "95")
+    .attr("font-size", "20");
+  
+  var options = svg.append("g")
+    .attr("id","buttons")
+
+  options.append("rect")
+    .attr("id","rep")
+    .attr("x","235").attr("y", "55")
+    .attr("fill", "#E5E7E9")
+    .attr('width', '90')
+    .attr('height','20')
+    .attr('stroke', "gray")
+    .attr("stroke-width","3");
+  
+  options.append("rect")
+    .attr('id','dem')
+    .attr("x","335").attr("y", "55")
+    .attr("fill", "#E5E7E9")
+    .attr('width', '80')
+    .attr('height','20');
+  
+  options.append("rect")
+    .attr('id','ind')
+    .attr("x","425").attr("y", "55")
+    .attr("fill", "#E5E7E9")
+    .attr('width', '100')
+    .attr('height','20');
+
+  options.append("text")
+    .attr('id','rep')
+    .attr("x","240").attr("y", "70")
+    .text("Republicans");
+
+  options.append("text")
+    .attr('id','dem')
+    .attr("x","340").attr("y", "70")
+    .text("Democrats");
+
+  options.append("text")
+    .attr('id','ind')
+    .attr("x","432").attr("y", "70")
+    .text("Independents");
+
+  var vsdata = [9, 12, 13, 75, 8];
+  var sdata = [27, 24, 24, 20, 28];
+  var nvsdata = [46, 43, 35, 3, 46];
+  var ndata = [16, 18, 26, 1, 16];
+  var facetlabels = ["Very strong conflicts",
+                    "Strong conflicts",
+                    "Not very strong conflicts",
+                    "There are no conflicts"];
+    var ylabels = ["Young and Old",
+                "Poor and Rich",
+                "People in Cities and in Rural Areas",
+                "Democrats and Republicans",
+                "Black and White"];
+  
+  var vs = svg
+    .append('g')
+    .attr('id', 'vs');
+    
+
+  var s = svg
+    .append('g')
+    .attr('id', 's');
+  
+  var nvs = svg
+    .append('g')
+    .attr('id', 'nvs');
+  
+  var n = svg
+    .append('g')
+    .attr('id', 'n');
+
+    var y = svg.append('g')
+    .attr('id','ylabels')
+    .selectAll("text")
+    .data(ylabels);
+  
+  y.enter()
+    .append("text")
+    .attr("x", "200")
+    .attr("y",(d,i)=>i*50+225)
+    .attr("text-anchor","end")
+    .attr("font-family","sans-serif")
+    .attr("font-size","12")
+    .text(d=>d);
+  
+  var facets = svg.append('g')
+    .attr('id','facets')
+    .selectAll("text")
+    .data(facetlabels);
+  
+  facets.enter()
+    .append("text")
+    .attr("x", (d,i)=> i*200+210)
+    .attr("y", "180")
+    .attr("font-family","sans-serif")
+    .attr("font-weight", "bold")
+    .attr("font-size","12")
+    .text(d=>d);
+  
+  
+  vs
+    .selectAll('rect')
+    .data(vsdata)
+    .enter()
+    .append('rect')
+    .attr('x', '210')
+    .attr('y', (d, i) => i * 50 + 200)
+    .attr('width', d => d*2)
+    .attr('height', '35')
+    .attr('fill', '#78281F');
+  
+  vs.selectAll("text")
+    .data(vsdata)
+    .enter()
+    .append("text")
+    .attr('x', d=>d*2+215)
+    .attr('y', (d, i) => i * 50 + 222)
+    .attr("fill", "#78281F")
+    .attr("text-anchor","start")
+    .text(d=>d+"%");
+  
+
+  s
+    .selectAll('rect')
+    .data(sdata)
+    .enter()
+    .append('rect')
+    .attr('x', '410')
+    .attr('y', (d, i) => i * 50 + 200)
+    .attr('width', d => d*2)
+    .attr('height', '35')
+    .attr('fill', '#B03A2E');
+  
+  s.selectAll("text")
+    .data(sdata)
+    .enter()
+    .append("text")
+    .attr('x', d=>d*2+415)
+    .attr('y', (d, i) => i * 50 + 222)
+    .attr("fill", "#B03A2E")
+    .attr("text-anchor","start")
+    .text(d=>d+"%");
+  
+  
+  nvs
+    .selectAll('rect')
+    .data(nvsdata)
+    .enter()
+    .append('rect')
+    .attr('x', '610')
+    .attr('y', (d, i) => i * 50 + 200)
+    .attr('width', (d) => d*2)
+    .attr('height', '35')
+    .attr('fill', "#EC7063");
+  
+  nvs.selectAll("text")
+    .data(nvsdata)
+    .enter()
+    .append("text")
+    .attr('x', d=>d*2+615)
+    .attr('y', (d, i) => i * 50 + 222)
+    .attr("fill", "#EC7063")
+    .attr("text-anchor","start")
+    .text(d=>d+"%");
+  
+  n
+    .selectAll('rect')
+    .data(ndata)
+    .enter()
+    .append('rect')
+    .attr('x', '810')
+    .attr('y', (d, i) => i * 50 + 200)
+    .attr('width', (d) => d*2)
+    .attr('height', '35')
+    .attr('fill', '#F5B9B9');
+  
+  n.selectAll("text")
+    .data(ndata)
+    .enter()
+    .append("text")
+    .attr('x', d=>d*2+815)
+    .attr('y', (d, i) => i * 50 + 222)
+    .attr("fill", "#F5B9B9")
+    .attr("text-anchor","start")
+    .text(d=>d+"%");
+
+  // General Update Pattern
+  demdata = [[14,44,16,72,26],[28,34,33,21,49],[44,14,35,4,19],[13,6,14,0,4]]
+  inddata = [[12,28,15,72,17],[23,31,26,20,31],[47,30,38,6,42],[16,8,19,0,8]]
+  repdata = [[9,12,13,75,8],[27,24,24,20,28],[46,43,35,3,46],[16,18,26,1,16]]
+  
+  function changedata(VSdata,Sdata,NVSdata,Ndata) {
+        var dvs = svg
+        .select("#vs");
+      
+      dvs.selectAll("rect")
+        .data(VSdata)
+        .transition()
+        .duration(1000)
+        .attr('width', d => d*2);
+
+      dvs.selectAll("text")
+        .data(VSdata)
+        .transition()
+        .duration(1000)
+        .attr('x', d=>d*2+215)
+        .text(d=>d+"%");
+    
+        var ds = svg
+        .select("#s");
+      
+      ds.selectAll("rect")
+        .data(Sdata)
+        .transition()
+        .duration(1000)
+        .attr('width', d => d*2);
+      
+      ds.selectAll("text")
+        .data(Sdata)
+        .transition()
+        .duration(1000)
+        .attr('x', d=>d*2+415)
+        .text(d=>d+"%");
+      
+      var dnvs = svg
+        .select("#nvs");
+      
+      dnvs.selectAll("rect")
+        .data(NVSdata)
+        .transition()
+        .duration(1000)
+        .attr('width', d => d*2);
+      
+      dnvs.selectAll("text")
+        .data(NVSdata)
+        .transition()
+        .duration(1000)
+        .attr('x', d=>d*2+615)
+        .text(d=>d+"%");
+      
+      var dn = svg
+        .select("#n");
+      
+      dn.selectAll("rect")
+        .data(Ndata)
+        .transition()
+        .duration(1000)
+        .attr('width', d => d*2);
+      
+      dn.selectAll("text")
+        .data(Ndata)
+        .transition()
+        .duration(1000)
+        .attr('x', d=>d*2+815)
+        .text(d=>d+"%");
+    }
+
+    svg.select("#buttons").selectAll("text")
+      .on("click", function () {
+        var buttonID = d3.select(this).attr("id");
+        svg.select("#buttons").selectAll("rect")
+          .attr("stroke-width", "0");
+
+        if (buttonID == "rep") {
+          svg.select("#buttons").select("rect#rep")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(repdata[0],repdata[1],repdata[2],repdata[3])
+
+        } else if (buttonID == "dem") {
+          svg.select("#buttons").select("rect#dem")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(demdata[0],demdata[1],demdata[2],demdata[3])
+        } else {
+          svg.select("#buttons").select("rect#ind")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(inddata[0],inddata[1],inddata[2],inddata[3])
+        }
+    })
+
+    svg.select("#buttons").selectAll("rect")
+      .on("click", function () {
+        var buttonID = d3.select(this).attr("id");
+        svg.select("#buttons").selectAll("rect")
+          .attr("stroke-width", "0");
+
+        if (buttonID == "rep") {
+          svg.select("#buttons").select("rect#rep")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(repdata[0],repdata[1],repdata[2],repdata[3])
+
+        } else if (buttonID == "dem") {
+          svg.select("#buttons").select("rect#dem")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(demdata[0],demdata[1],demdata[2],demdata[3])
+        } else {
+          svg.select("#buttons").select("rect#ind")
+            .attr("stroke", "grey")
+            .attr("stroke-width","3");
+          
+          changedata(inddata[0],inddata[1],inddata[2],inddata[3])
+        }
+    })
+
+</script>
 
 </div>
             </section>
@@ -138,7 +489,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/06-interactive.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/edit/main/06-interactive.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +497,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/06-interactive.Rmd",
+"link": "https://github.com/odileeyasu/Jan20PoliticalSurvey/blob/main/06-interactive.Rmd",
 "text": null
 },
 "download": null,

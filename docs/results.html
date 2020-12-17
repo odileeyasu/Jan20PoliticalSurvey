@@ -130,9 +130,35 @@ It’s not surprising to see that a majority democrats and republicans disagree 
 </div>
 <div id="political-affliations-sex-race-and-education" class="section level2">
 <h2><span class="header-section-number">5.2</span> Political Affliations, Sex, Race, and Education</h2>
-<p><img src="finalproj_files/figure-html/select%20ISEX,%20IRACE1,%20EDUC,%20INCOME-1.png" width="864" /></p>
+<p>In this section, we’ll take a look at whether there’s any association between political affiliation of a respondent and their sex/race/education. Each of the factors will be examined through percent stacked bar chart to compare difference across the groups.</p>
+<p><img src="finalproj_files/figure-html/select%20ISEX,%20IRACE1,%20EDUC,%20INCOME-1.png" width="864" />
+The first factor we investigate is Sex (not gender). Among respondents that give a firm response on this question (either male or female), we didn’t see a significant difference in the proportion of male and female respondents identified with each party. The percentage of female respondents in this survey identified as democrats is roughly the same as that of male respondents. Based on the data available from this survey, we can only conclude here that sex doesn’t seem to be a factor associated with party identification.</p>
 <p><img src="finalproj_files/figure-html/race%20and%20party-1.png" width="864" />
 <img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
+<pre><code>## # A tibble: 4 x 2
+##   Race                       Freq
+##   &lt;fct&gt;                     &lt;int&gt;
+## 1 White                       712
+## 2 Black or African-American    68
+## 3 Or some other race           61
+## 4 (VOL) Don&#39;t know/Refused      8</code></pre>
+<pre><code>## # A tibble: 9 x 2
+##   Education                                                                 Freq
+##   &lt;fct&gt;                                                                    &lt;int&gt;
+## 1 Less than high school (Grades 1-8 or no formal schooling)                   15
+## 2 High school incomplete (Grades 9-11 or Grade 12 with NO diploma)            21
+## 3 High school graduate (Grade 12 with diploma or GED certificate)            184
+## 4 Some college, no degree (includes some community college)                  131
+## 5 Two year associate degree from a college or university                     118
+## 6 Four year college or university degree/Bachelor&#39;s degree (e.g., BS, BA,…   205
+## 7 Some postgraduate or professional schooling, no postgraduate degree (e.…    13
+## 8 Postgraduate or professional degree, including master&#39;s, doctorate, med…   158
+## 9 (VOL) Don&#39;t know/Refused                                                     4</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   Sex     Freq
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 Male     317
+## 2 Female   532</code></pre>
 <pre><code>## $Education
 ## [1] 0.0002876924
 ## 
