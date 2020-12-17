@@ -81,7 +81,10 @@
 <li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#conflicts-between-different-social-groups-in-america"><i class="fa fa-check"></i><b>5.1.1</b> <em>Conflicts between different social groups in America</em></a></li>
 <li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#other-controversial-social-topics"><i class="fa fa-check"></i><b>5.1.2</b> <em>Other Controversial Social Topics</em></a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#political-affliations-sex-race-and-education"><i class="fa fa-check"></i><b>5.2</b> Political Affliations, Sex, Race, and Education</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#political-affliations-sex-race-and-education"><i class="fa fa-check"></i><b>5.2</b> Political Affliations, Sex, Race, and Education</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#analysis-and-findings"><i class="fa fa-check"></i><b>5.2.1</b> Analysis and findings</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#discussing-the-limitation-of-the-analysis-in-the-section"><i class="fa fa-check"></i><b>5.2.2</b> Discussing the limitation of the analysis in the section</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -130,12 +133,34 @@ It’s not surprising to see that a majority democrats and republicans disagree 
 </div>
 <div id="political-affliations-sex-race-and-education" class="section level2">
 <h2><span class="header-section-number">5.2</span> Political Affliations, Sex, Race, and Education</h2>
+<div id="analysis-and-findings" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Analysis and findings</h3>
 <p>In this section, we’ll take a look at whether there’s any association between political affiliation of a respondent and their sex/race/education. Each of the factors will be examined through percent stacked bar chart to compare difference across the groups. For the purpose of our analysis, we removed respondents who did not exhibit a bipolar political interest; in other words, we only included respondents who identified as either a <strong>republican</strong> or <strong>democrat</strong>. In addition, we’ll discuss the limitation of our analysis at the end of this section.</p>
 <p><img src="finalproj_files/figure-html/select%20ISEX,%20IRACE1,%20EDUC,%20INCOME-1.png" width="864" />
 The first factor we investigate is Sex (not gender). Among respondents that give a firm response on this question (either male or female), we didn’t see a significant difference in the proportion of male and female respondents identified with each party. The percentage of female respondents in this survey identified as democrats is roughly the same as that of male respondents. Based on the data available from this survey, we can only conclude here that sex doesn’t seem to be a factor associated with party identification.</p>
 <p><img src="finalproj_files/figure-html/race%20and%20party-1.png" width="864" />
 The graph above shows the proportion of people of each race category identified with a democrat or republican. We can observe that, more than half of the white respondents identified themselves as a republican, while less than half of black respondents or respondents of some other race identified themselves as a republican. The observable disparity may indicate some association between race and party identification, and being white may have some positive association with being republican.</p>
-<p><img src="finalproj_files/figure-html/education-1.png" width="864" /></p>
+<p><img src="finalproj_files/figure-html/education-1.png" width="864" />
+From the above bar chart, if we use 50% as a boundary, we can obviously observe that more people with bachelor’s and postgraduate degree identified themselves as a democrat, while the respondents with other education levels would be more likely to identify themselves as a republican. From the available data and our chart, we may be comfortable to conclude that difference in education levels are associated with difference in party affiliation.</p>
+<p>To conclude our findings, we would like to run a chi-square test on the association between party and each of the factors we examined above.</p>
+<pre><code>## $Education
+## [1] 0.0002876924
+## 
+## $Race
+## [1] 0.04558182
+## 
+## $Sex
+## [1] 0.8839052</code></pre>
+<p>According to the test results, at a significance level of 0.05, we would conclude that education levels and race are two factors associated with party affiliations while sex is not. In other words, people with different education level and of different race may have different inclinations towards certain party identification, while the party identification of people of different sex doesn’t seem to differ significantly.</p>
+</div>
+<div id="discussing-the-limitation-of-the-analysis-in-the-section" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Discussing the limitation of the analysis in the section</h3>
+<p>In this small section, we would like to discuss some limitations with our analysis and the data. An audience may question our above findings, since in reality, many believe that both race and gender are two factors associated with party affiliations. We also have this confusion, too. Therefore, we took a closer look on the sample size of each category of race, sex, and education. Below is what we found:</p>
+<pre><code>## # A tibble: 2 x 2
+##   Sex     Freq
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 Male     317
+## 2 Female   532</code></pre>
 <pre><code>## # A tibble: 4 x 2
 ##   Race                       Freq
 ##   &lt;fct&gt;                     &lt;int&gt;
@@ -155,20 +180,13 @@ The graph above shows the proportion of people of each race category identified 
 ## 7 Some postgraduate or professional schooling, no postgraduate degree (e.…    13
 ## 8 Postgraduate or professional degree, including master&#39;s, doctorate, med…   158
 ## 9 (VOL) Don&#39;t know/Refused                                                     4</code></pre>
-<pre><code>## # A tibble: 2 x 2
-##   Sex     Freq
-##   &lt;fct&gt;  &lt;int&gt;
-## 1 Male     317
-## 2 Female   532</code></pre>
-<pre><code>## $Education
-## [1] 0.0002876924
-## 
-## $Race
-## [1] 0.04558182
-## 
-## $Sex
-## [1] 0.8839052</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Female and male respondents are both of hundreds. Although the numbers are not really close, the sample may be representative of each sex population.</p></li>
+<li><p>For race, we see that among all respondents, the number of white respondents are disproportionately larger than that of people of other races. For instance, in this dataset, there are only 68 black respondents; in addition, while Asian-American remains an answer choice for the race question, there’s no respondent choosing this answer. This is definitely not representative of the reality. The low sample size of black respondents may indicate that our analysis of their party affiliation may be hugely different from the party affiliation of all black people in reality.</p></li>
+<li><p>Same problem goes with education levels. We see that, among all respondents, there are only 15 respondents have an education level less than high school. Therefore, the information we derive from this group of people may not reflect the reality as well.</p></li>
+</ol>
 
+</div>
 </div>
 </div>
             </section>

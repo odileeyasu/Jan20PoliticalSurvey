@@ -31,6 +31,7 @@ We'll use faceted bar chart to visualize the findings for this matter. In additi
 
 
 ```{r select q10 and PARTY}
+# preprocess data for plotting
 conflicts <- politics[,c("party","q10a","q10b","q10c","q10d","q10e")]
 colnames(conflicts) <- c("Party", 
                          "Poor and Rich", 
@@ -38,6 +39,8 @@ colnames(conflicts) <- c("Party",
                          "People in Cities and in Rural Areas", 
                          "Young and Old", 
                          "Democrats and Republicans")
+
+# tidy data
 conflicts_tidy <- pivot_longer(conflicts, !Party, 
                                names_to = "Question", 
                                values_to = "Response")
@@ -48,13 +51,17 @@ conflicts_tidy <- conflicts_tidy[conflicts_tidy$Response == "Very strong conflic
                                    conflicts_tidy$Response == "Strong conflicts"|
                                     conflicts_tidy$Response == "Not very strong conflicts"|
                                      conflicts_tidy$Response == "There are not conflicts",]
+# group by party, question, response
 conflicts_summary <- conflicts_tidy %>%
   group_by(Party, Question, Response) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 ```
+
+
 ```{r plot conflicts}
-likert_theme <- theme_gray() +
+# create a theme for the faceted bar chart
+bar_theme <- theme_gray() +
   theme(text = element_text(size = 10),
         plot.title = element_text(size = 11, face = "bold"), 
         plot.subtitle = element_text(face = "italic"),
@@ -73,13 +80,14 @@ likert_theme <- theme_gray() +
         panel.spacing.x = unit(0,"cm"),
         panel.spacing.y = unit(.7,"cm"))
 
+# plot
 ggplot(conflicts_summary, aes(Question, Prop, fill = fct_rev(Response))) +
-  likert_theme + 
+  bar_theme + 
   geom_col() +
-  geom_text(aes(Question, Prop, label = paste0(as.integer(100*Prop),"%")), # add percentage
+  geom_text(aes(Question, Prop, label = paste0(as.integer(100*Prop),"%")), # add percentage label
             position = position_stack(vjust = .5),
             size = 2.7) +
-  scale_fill_brewer(type = "seq", palette = "Oranges") + # use a diverging fill
+  scale_fill_brewer(type = "seq", palette = "Oranges") + # use a sequential fill
   coord_flip() +
   guides(fill = guide_legend(reverse = TRUE)) +
   facet_grid(Party~Response) +
@@ -99,13 +107,18 @@ Differences among the 3 political groups:
 ### *Other Controversial Social Topics*
 
 ```{r select party and q40, 41,42,45}
+# preprocess data for plotting
 stopics <- politics[, c("party","q40","q42","q45")]
+
+# remove uncertain responses
 stopics <- stopics[!(stopics$party=="VOL) No preference"|
                        stopics$party=="(VOL) Other party"|
                        stopics$party=="(VOL) Don't know/Refused"|
                        stopics$q40=="(VOL) Don't know/Refused"|
                        stopics$q42=="(VOL) Don't know/Refused"|
                        stopics$q45=="(VOL) Don't know/Refused"),]
+
+# rename levels to ensure consistency across questions
 levels(stopics$q45)<- c("Strongly favor",
                         "Somewhat favor", 
                         "Somewhat oppose",
@@ -117,15 +130,20 @@ colnames(stopics) <- c("Party",
                        "Free tuition at public colleges and universities to all American students",
                        "Death penalty for persons convicted of murder")
 
+# tidy data
 stopics_tidy <- pivot_longer(stopics,!Party,
                              names_to = "Question", 
                              values_to = "Response")
+
+# reorder factor levels for plotting
 stopics_tidy$Party <- factor(stopics_tidy$Party,
                               levels= c("Democrat",
                               "Independent",
                               "Republican",
                               "VOL) No preference",
                               "(VOL) Other party"))
+
+# grouping by party, question, and response
 stopics_summary <- stopics_tidy %>%
   group_by(Party, Question, Response) %>%
   summarize(Freq = n()) %>%
@@ -133,10 +151,13 @@ stopics_summary <- stopics_tidy %>%
 ```
 
 ```{r plot stopics}
+# split opposes from supports to create likert-scale plot
 opposes <- stopics_summary[stopics_summary$Response=="Strongly oppose"|
                              stopics_summary$Response=="Somewhat oppose",]
 supports <- stopics_summary[stopics_summary$Response=="Strongly favor"|
                              stopics_summary$Response=="Somewhat favor",]
+
+# plotting
 ggplot() +
   theme_gray() +
   theme(text = element_text(size = 10),
@@ -175,19 +196,24 @@ It's not surprising to see that a majority democrats and republicans disagree on
 
 ## Political Affliations, Sex, Race, and Education
 
+### Analysis and findings
 In this section, we'll take a look at whether there's any association between political affiliation of a respondent and their sex/race/education. Each of the factors will be examined through percent stacked bar chart to compare difference across the groups. For the purpose of our analysis, we removed respondents who did not exhibit a bipolar political interest; in other words, we only included respondents who identified as either a **republican** or **democrat**. In addition, we'll discuss the limitation of our analysis at the end of this section.
 
 ```{r select ISEX, IRACE1, EDUC, INCOME}
+# select variables for analysis
+# filter out respondents identified as democrats or republcians
 corr <- politics[(politics$party == "Democrat"|
                     politics$party == "Republican"),
                  c("party","isex","iracem1","educ")]
 colnames(corr) <- c("Party", "Sex", "Race", "Education")
+
+# grouping by gender
 gender <- corr %>%
   group_by(Sex, Party) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 
-
+# set theme
 theme_bar <- theme_gray() +
   theme(text = element_text(size = 10),
         plot.title = element_text(size = 13, face = "bold",
@@ -205,12 +231,14 @@ theme_bar <- theme_gray() +
         strip.text.x = element_text(size=10, face = "italic"),
         panel.spacing.x = unit(0,"cm"),
         panel.spacing.y = unit(.7,"cm"))
+
+# plotting
 ggplot(gender) +
   theme_bar +
   theme(axis.text.x = element_blank(),
         legend.position = "top") +
   geom_bar(aes(Prop, Sex, fill=fct_rev(Party)),stat = "identity") +
-  geom_text(aes(Prop, Sex, label = paste0(as.integer(100*Prop),"%")), # add percentage
+  geom_text(aes(Prop, Sex, label = paste0(as.integer(100*Prop),"%")), # add percentage label
             position = position_stack(vjust = .5),
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1")+
@@ -221,11 +249,13 @@ ggplot(gender) +
 The first factor we investigate is Sex (not gender). Among respondents that give a firm response on this question (either male or female), we didn't see a significant difference in the proportion of male and female respondents identified with each party. The percentage of female respondents in this survey identified as democrats is roughly the same as that of male respondents. Based on the data available from this survey, we can only conclude here that sex doesn't seem to be a factor associated with party identification.
 
 ```{r race and party}
+# group by race
 race <- corr %>%
   group_by(Race, Party) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 
+# rename levels of race
 levels(race$Race) <- c("White",
                        "Black or African-American", 
                        "Asian or Asian-American",
@@ -233,6 +263,7 @@ levels(race$Race) <- c("White",
                        "Don't know/Refused")
 race <- race[!(race$Race=="Don't know/Refused"),]
 
+# plotting
 ggplot(race) +
   theme_bar +
   theme(axis.text.x = element_blank(),
@@ -249,10 +280,16 @@ ggplot(race) +
 The graph above shows the proportion of people of each race category identified with a democrat or republican. We can observe that, more than half of the white respondents identified themselves as a republican, while less than half of black respondents or respondents of some other race identified themselves as a republican. The observable disparity may indicate some association between race and party identification, and being white may have some positive association with being republican.
 
 ```{r education}
+# remove responses with no education information
 education <- corr[!(corr$Education == "(VOL) Don't know/Refused"),]
 
 
-
+# regrouping factors into 5 categories,
+# high school or less;
+# college without degree;
+# Associate degree;
+# bachelor degree;
+# post graduate degree;
 levels(education$Education) <- list("High School or Less" = c("Less than high school (Grades 1-8 or no formal schooling)",
                                                               "High school incomplete (Grades 9-11 or Grade 12 with NO diploma)",
                                                               "High school graduate (Grade 12 with diploma or GED certificate)"),
@@ -263,11 +300,13 @@ levels(education$Education) <- list("High School or Less" = c("Less than high sc
                                     "Postgraduate Degree" = c("Postgraduate or professional degree, including master's, doctorate, medical or law degree (e.g., MA, MS, PhD, MD, JD, gr"))
 education <- education[!(is.na(education$Education)),]
 
-education <- education[!(is.na(education$Education)),] %>%
+# group by education levels
+education <- education %>%
   group_by(Education, Party) %>%
   summarize(Freq = n()) %>%
   mutate(Prop = Freq/sum(Freq))
 
+# plotting
 ggplot(education) +
   theme_bar +
   theme(axis.text.x = element_blank(),
@@ -278,11 +317,29 @@ ggplot(education) +
             size = 3, face = "bold")+
   scale_fill_brewer(type = "seq", palette = "Pastel1") +
   guides(fill = guide_legend(reverse = TRUE)) +
-  ggtitle("Differences in education may contribute to different party identification",
+  ggtitle("Differences in education may be associated with different party identification",
           subtitle = "More respondents with bachelor's degree and above identify themselves as Democrats")
 ```
+From the above bar chart, if we use 50% as a boundary, we can obviously observe that more people with bachelor's and postgraduate degree identified themselves as a democrat, while the respondents with other education levels would be more likely to identify themselves as a republican. From the available data and our chart, we may be comfortable to conclude that difference in education levels are associated with difference in party affiliation.
 
-```{r look at the sample}
+To conclude our findings, we would like to run a chi-square test on the association between party and each of the factors we examined above.
+
+```{r chi-square test}
+# run chi-square test
+pvals <- lapply(corr[,-1], function(x) chisq.test(x, y =corr$Party)$p.value)
+pvals[order(unlist(pvals))]
+```
+According to the test results, at a significance level of 0.05, we would conclude that education levels and race are two factors associated with party affiliations while sex is not. In other words, people with different education level and of different race may have different inclinations towards certain party identification, while the party identification of people of different sex doesn't seem to differ significantly.
+
+### Discussing the limitation of the analysis in the section
+
+In this small section, we would like to discuss some limitations with our analysis and the data. An audience may question our above findings, since in reality, many believe that both race and gender are two factors associated with party affiliations. We also have this confusion, too. Therefore, we took a closer look on the sample size of each category of race, sex, and education. Below is what we found:
+
+```{r look at the sample size for each subcategory}
+corr%>%
+  group_by(Sex) %>%
+  summarize(Freq=n())
+
 corr %>%
   group_by(Race) %>%
   summarize(Freq = n())
@@ -290,18 +347,14 @@ corr %>%
 corr %>%
   group_by(Education) %>%
   summarize(Freq=n())
-
-corr%>%
-  group_by(Sex) %>%
-  summarize(Freq=n())
 ```
 
+a) Female and male respondents are both of hundreds. Although the numbers are not really close, the sample may be representative of each sex population.
+
+b) For race, we see that among all respondents, the number of white respondents are disproportionately larger than that of people of other races. For instance, in this dataset, there are only 68 black respondents; in addition, while Asian-American remains an answer choice for the race question, there's no respondent choosing this answer. This is definitely not representative of the reality. The low sample size of black respondents may indicate that our analysis of their party affiliation may be hugely different from the party affiliation of all black people in reality.
+
+c) Same problem goes with education levels. We see that, among all respondents, there are only 15 respondents have an education level less than high school. Therefore, the information we derive from this group of people may not reflect the reality as well.
 
 
-```{r chi-square test}
-# run chi-square test
-pvals <- lapply(corr[,-1], function(x) chisq.test(x, y =corr$Party)$p.value)
-pvals[order(unlist(pvals))]
-```
 
 
