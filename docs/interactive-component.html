@@ -123,16 +123,16 @@
     .attr('height','235');
 
   svg.append("text")
-    .text("In").attr("x","210").attr("y", "70")
+    .text("In").attr("x","110").attr("y", "70")
     .attr("font-size", "20");
   
   svg.append("text")
-  .text("' opinion,").attr("x","530").attr("y", "70")
+  .text("' opinion,").attr("x","430").attr("y", "70")
   .attr("font-size", "20");
   
   svg.append("text")
   .text("are conflicts between ... and ... very strong, strong, \nnot very strong, or there are not conflicts?")
-    .attr("x","210").attr("y", "95")
+    .attr("x","110").attr("y", "95")
     .attr("font-size", "20");
   
   var options = svg.append("g")
@@ -140,7 +140,7 @@
 
   options.append("rect")
     .attr("id","rep")
-    .attr("x","235").attr("y", "55")
+    .attr("x","135").attr("y", "55")
     .attr("fill", "#E5E7E9")
     .attr('width', '90')
     .attr('height','20')
@@ -149,31 +149,31 @@
   
   options.append("rect")
     .attr('id','dem')
-    .attr("x","335").attr("y", "55")
+    .attr("x","235").attr("y", "55")
     .attr("fill", "#E5E7E9")
     .attr('width', '80')
     .attr('height','20');
   
   options.append("rect")
     .attr('id','ind')
-    .attr("x","425").attr("y", "55")
+    .attr("x","325").attr("y", "55")
     .attr("fill", "#E5E7E9")
     .attr('width', '100')
     .attr('height','20');
 
   options.append("text")
     .attr('id','rep')
-    .attr("x","240").attr("y", "70")
+    .attr("x","140").attr("y", "70")
     .text("Republicans");
 
   options.append("text")
     .attr('id','dem')
-    .attr("x","340").attr("y", "70")
+    .attr("x","240").attr("y", "70")
     .text("Democrats");
 
   options.append("text")
     .attr('id','ind')
-    .attr("x","432").attr("y", "70")
+    .attr("x","332").attr("y", "70")
     .text("Independents");
 
   var vsdata = [9, 12, 13, 75, 8];
