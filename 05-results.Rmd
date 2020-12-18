@@ -24,8 +24,8 @@ In this chapter, we are going to present our answers to each of the questions we
 a)  What are opinions of people who identified with different political parties on various political and societal matters? What can we conclude about the political ideologies of different parties?
 
 b)  Are political affiliations associated with the level of education, religious beliefs, gender, or income level?
-  
-c)  What are some noticeable characteristics of those who refused to certain interview questions?
+
+c)  Are the approval rate of Donald Trump associated with race and sex? 
 
 ## Opinions of people identified with different parties on different matters
 
@@ -374,12 +374,12 @@ c) Same problem goes with education levels. We see that, among all respondents, 
 
 Four years ago the election of President Donald Trump came as a surprise for many people. With the 2020 presidential election behind us and President Trump failing to be re-elected, it came to our mind to analyze the approval rate of President Donald Trump based on the data of this survey. Based on US News, a survey conducted by Ipsos in July 2020, 67% of the Americans were dissatisfied with Trump's handling of the coronavirus epidemic; in another poll conducted by Gallup, the satisfaction rate of Americans hit a nine-year low at 13% (https://www.usnews.com/news/politics/articles/2020-10-30/satisfaction-with-america-doubles-amid-coronavirus-presidential-campaign-poll). It is apparent enough that most Americans are not happy with the Trump administration during this epidemic. On the other hand, as this survey was conducted in January, 2020 before the complete outbreak of COVID-19 in the US, it came to our interest to investigate on the approval rate of Donald Trump. Below is a geographic map of the approval rate of President Trump.
 
-```{r}
+```{r 3a}
 politics$q2_code = ifelse(politics$q2=='Approve', 1, 0)
 app_state <- politics%>%select(respid, state, q2_code)%>%group_by(state)%>%summarise(ApprovalRate = (sum(q2_code)/n())*100)
 ```
 
-```{r}
+```{r 3b}
 plot_usmap(data = app_state, values = "ApprovalRate", color = "black", labels=TRUE) + 
   scale_fill_continuous(name = "% Approval Rate",  low='white', high='brown3', label = scales::comma) + 
   theme(legend.position = "right", 
@@ -391,7 +391,7 @@ plot_usmap(data = app_state, values = "ApprovalRate", color = "black", labels=TR
 
 From the above choropleth map, we can clearly identify the states where approval rate are the highest, such as Montana and South Dakota, are among those states which have always been pro Republican. The above graph matches our expectations of the general landscape of political parties. From the previous section, we did not see any potential affiliations between race, sex and political affiliations. Yet would it be the same case with the approval rate of President Trump? Next, we want to take a closer look at race and sex.
 
-```{r}
+```{r 3c}
 app_state_2 <- politics%>%filter(iracem1!='(VOL) Don\'t know/Refused', q2!='(VOL) Don\'t know/Refused')%>%select(isex, iracem1, q2)
 colnames(app_state_2) <- c('Sex', 'Race', 'Approval')
 app_state_2$Approval<-as.character(app_state_2$Approval)
@@ -400,7 +400,7 @@ app_state_2[app_state_2$Race=='Or some other race','Race'] = 'Other'
 app_state_2[app_state_2$Race=='Black or African-American','Race'] = 'Black'
 ```
 
-```{r}
+```{r 3d}
 vcd::mosaic(Approval~Sex+Race, 
             direction=c("v", "v", "h"), 
             zero_size = 0, 
@@ -413,12 +413,12 @@ vcd::mosaic(Approval~Sex+Race,
 
 From the above mosaic plot, we can clearly identify the substantially higher disapproval rate of Trump for black community than any other race groups; furthermore, there does not seem to be a significant difference between approval of Trump for females and males. To statistically prove the observed result, we run the chi-square test as below.
 
-```{r}
+```{r 3e}
 chisq.test(table(app_state_2$Sex, app_state_2$Approval))
 chisq.test(table(app_state_2$Race, app_state_2$Approval))
 ```
 
-```{r}
+```{r 3f}
 app_state_2[app_state_2$Race!='Black', 'Race'] = 'Non-black'
 chisq.test(table(app_state_2$Race, app_state_2$Approval))
 ```
