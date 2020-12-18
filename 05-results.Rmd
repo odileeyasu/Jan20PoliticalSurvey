@@ -13,7 +13,6 @@ library(vcd)
 library(dplyr)
 library(forcats)
 library(usmap)
-library(ggmosaic)
 ```
 
 ```{r read file}
