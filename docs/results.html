@@ -24,7 +24,7 @@
 <meta name="author" content="Jingyi An, Tingyi Lu" />
 
 
-<meta name="date" content="2020-12-17" />
+<meta name="date" content="2020-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,9 +50,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -85,9 +82,14 @@
 <li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#analysis-and-findings"><i class="fa fa-check"></i><b>5.2.1</b> Analysis and findings</a></li>
 <li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#discussing-the-limitation-of-the-analysis-in-the-section"><i class="fa fa-check"></i><b>5.2.2</b> Discussing the limitation of the analysis in the section</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#the-approval-rate-of-donald-trump"><i class="fa fa-check"></i><b>5.3</b> The Approval Rate of Donald Trump</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a><ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#concluding-the-findings"><i class="fa fa-check"></i><b>7.1</b> Concluding the findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#discussing-limitations"><i class="fa fa-check"></i><b>7.2</b> Discussing limitations</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#looking-into-the-future"><i class="fa fa-check"></i><b>7.3</b> Looking into the future</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -196,8 +198,35 @@ From the above bar chart, if we use 50% as a boundary, we can obviously observe 
 <li><p>For race, we see that among all respondents, the number of white respondents are disproportionately larger than that of people of other races. For instance, in this dataset, there are only 68 black respondents; in addition, while Asian-American remains an answer choice for the race question, there’s no respondent choosing this answer. This is definitely not representative of the reality. The low sample size of black respondents may indicate that our analysis of their party affiliation may be hugely different from the party affiliation of all black people in reality.</p></li>
 <li><p>Same problem goes with education levels. We see that, among all respondents, there are only 15 respondents have an education level less than high school. Therefore, the information we derive from this group of people may not reflect the reality as well.</p></li>
 </ol>
-
 </div>
+</div>
+<div id="the-approval-rate-of-donald-trump" class="section level2">
+<h2><span class="header-section-number">5.3</span> The Approval Rate of Donald Trump</h2>
+<p>Four years ago the election of President Donald Trump came as a surprise for many people. With the 2020 presidential election behind us and President Trump failing to be re-elected, it came to our mind to analyze the approval rate of President Donald Trump based on the data of this survey. Based on US News, a survey conducted by Ipsos in July 2020, 67% of the Americans were dissatisfied with Trump’s handling of the coronavirus epidemic; in another poll conducted by Gallup, the satisfaction rate of Americans hit a nine-year low at 13% (<a href="https://www.usnews.com/news/politics/articles/2020-10-30/satisfaction-with-america-doubles-amid-coronavirus-presidential-campaign-poll" class="uri">https://www.usnews.com/news/politics/articles/2020-10-30/satisfaction-with-america-doubles-amid-coronavirus-presidential-campaign-poll</a>). It is apparent enough that most Americans are not happy with the Trump administration during this epidemic. On the other hand, as this survey was conducted in January, 2020 before the complete outbreak of COVID-19 in the US, it came to our interest to investigate on the approval rate of Donald Trump. Below is a geographic map of the approval rate of President Trump.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
+<p>From the above choropleth map, we can clearly identify the states where approval rate are the highest, such as Montana and South Dakota, are among those states which have always been pro Republican. The above graph matches our expectations of the general landscape of political parties. From the previous section, we did not see any potential affiliations between race, sex and political affiliations. Yet would it be the same case with the approval rate of President Trump? Next, we want to take a closer look at race and sex.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="864" /></p>
+<p>From the above mosaic plot, we can clearly identify the substantially higher disapproval rate of Trump for black community than any other race groups; furthermore, there does not seem to be a significant difference between approval of Trump for females and males. To statistically prove the observed result, we run the chi-square test as below.</p>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(app_state_2$Sex, app_state_2$Approval)
+## X-squared = 0.2151, df = 1, p-value = 0.6428</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(app_state_2$Race, app_state_2$Approval)
+## X-squared = 1.9796, df = 2, p-value = 0.3717</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(app_state_2$Race, app_state_2$Approval)
+## X-squared = 1.6362, df = 1, p-value = 0.2009</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>From the result of the above chi-square test, we can see that neither sex and race seem to be associated with the approval of Trump’s performance. This comes as a surprise to us. Due to previous research, an article by Bloomberg (<a href="https://www.bloomberg.com/news/articles/2020-01-24/trump-s-approval-remains-far-higher-among-men-than-women" class="uri">https://www.bloomberg.com/news/articles/2020-01-24/trump-s-approval-remains-far-higher-among-men-than-women</a>) indicates that an 7 News/Emerson College poll of registered voters nationwide found that 57% of men approve Trump’s job while only 38% women held the same thought.</p></li>
+<li><p>Although there seems to be a difference among race groups, yet the difference is not statistically significant. Since the difference seems most significant between black and non-black groups, we grouped other race groups together and run the chi-square test again. Though the p-value decrease much, yet it’s still not substantial enough.</p></li>
+</ol>
+
 </div>
 </div>
             </section>

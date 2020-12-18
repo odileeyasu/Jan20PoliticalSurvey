@@ -16,7 +16,7 @@ library(usmap)
 ```
 
 ```{r read file}
-politics <- read.spss("../5702Final-Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
+politics <- read.spss("/Users/LTY/Desktop/5702/Final Project/Jan20-public/Jan20 public.sav", to.data.frame = TRUE)
 ```
 
 In this chapter, we are going to present our answers to each of the questions we proposed in the introduction section and also our process to come up with the answers and our conclusions. Below are our questions proposed in the introduction chapter for your reference:
