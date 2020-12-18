@@ -10,6 +10,8 @@ From our analysis in chapter 5, we conclude our findings from this January, 2020
 
 3) While difference in sex doesn't seem to be a significant factor associated with difference in party identification, difference in education levels and races appear to be associated with different party affiliations. 
 
+4) Following the result of factors in assocition with political parties, there also does not seem to be a statistically significant difference between different sex groups and race groups regarding the approval of President Trump's performance.
+
 ## Discussing limitations
 We also mention the limitations in our findings in the results chapter. The sample sizes of people coming from certain backgrounds (a particular race, a particular education level) are unbalanced. This would affect the authenticity of our analysis and conclusions. It is important to point out that, any analysis based on a larger, more balanced sample may be more reliable, and we should definitely consider switching to a different data source for relevant analysis in the future.
 
