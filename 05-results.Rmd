@@ -11,6 +11,10 @@ library(extracat)
 library(tidyverse)
 library(RColorBrewer)
 library(vcd)
+library(dplyr)
+library(forcats)
+library(usmap)
+library(ggmosaic)
 ```
 
 ```{r read file}
@@ -367,6 +371,63 @@ a) Female and male respondents are both of hundreds. Although the numbers are no
 b) For race, we see that among all respondents, the number of white respondents are disproportionately larger than that of people of other races. For instance, in this dataset, there are only 68 black respondents; in addition, while Asian-American remains an answer choice for the race question, there's no respondent choosing this answer. This is definitely not representative of the reality. The low sample size of black respondents may indicate that our analysis of their party affiliation may be hugely different from the party affiliation of all black people in reality.
 
 c) Same problem goes with education levels. We see that, among all respondents, there are only 15 respondents have an education level less than high school. Therefore, the information we derive from this group of people may not reflect the reality as well.
+
+## The Approval Rate of Donald Trump
+
+Four years ago the election of President Donald Trump came as a surprise for many people. With the 2020 presidential election behind us and President Trump failing to be re-elected, it came to our mind to analyze the approval rate of President Donald Trump based on the data of this survey. Based on US News, a survey conducted by Ipsos in July 2020, 67% of the Americans were dissatisfied with Trump's handling of the coronavirus epidemic; in another poll conducted by Gallup, the satisfaction rate of Americans hit a nine-year low at 13% (https://www.usnews.com/news/politics/articles/2020-10-30/satisfaction-with-america-doubles-amid-coronavirus-presidential-campaign-poll). It is apparent enough that most Americans are not happy with the Trump administration during this epidemic. On the other hand, as this survey was conducted in January, 2020 before the complete outbreak of COVID-19 in the US, it came to our interest to investigate on the approval rate of Donald Trump. Below is a geographic map of the approval rate of President Trump.
+
+```{r}
+politics$q2_code = ifelse(politics$q2=='Approve', 1, 0)
+app_state <- politics%>%select(respid, state, q2_code)%>%group_by(state)%>%summarise(ApprovalRate = (sum(q2_code)/n())*100)
+```
+
+```{r}
+plot_usmap(data = app_state, values = "ApprovalRate", color = "black", labels=TRUE) + 
+  scale_fill_continuous(name = "% Approval Rate",  low='white', high='brown3', label = scales::comma) + 
+  theme(legend.position = "right", 
+        #legend.text = element_text(size = 25),
+        #legend.title = element_text(size = 27),
+        plot.title = element_text(face='bold'))+
+  ggtitle('Jan 2020 Approval Rate of President Trump based on Survey')
+```
+
+From the above choropleth map, we can clearly identify the states where approval rate are the highest, such as Montana and South Dakota, are among those states which have always been pro Republican. The above graph matches our expectations of the general landscape of political parties. From the previous section, we did not see any potential affiliations between race, sex and political affiliations. Yet would it be the same case with the approval rate of President Trump? Next, we want to take a closer look at race and sex.
+
+```{r}
+app_state_2 <- politics%>%filter(iracem1!='(VOL) Don\'t know/Refused', q2!='(VOL) Don\'t know/Refused')%>%select(isex, iracem1, q2)
+colnames(app_state_2) <- c('Sex', 'Race', 'Approval')
+app_state_2$Approval<-as.character(app_state_2$Approval)
+app_state_2$Race<-as.character(app_state_2$Race)
+app_state_2[app_state_2$Race=='Or some other race','Race'] = 'Other'
+app_state_2[app_state_2$Race=='Black or African-American','Race'] = 'Black'
+```
+
+```{r}
+vcd::mosaic(Approval~Sex+Race, 
+            direction=c("v", "v", "h"), 
+            zero_size = 0, 
+            data = app_state_2, 
+            spacing = vcd::spacing_equal(sp = unit(0.5, "lines")), 
+            main = "Trump Approval by Sex and Race", 
+            highlighting_fill = c('tomato2', 'cornflowerblue')
+            )
+```
+
+From the above mosaic plot, we can clearly identify the substantially higher disapproval rate of Trump for black community than any other race groups; furthermore, there does not seem to be a significant difference between approval of Trump for females and males. To statistically prove the observed result, we run the chi-square test as below.
+
+```{r}
+chisq.test(table(app_state_2$Sex, app_state_2$Approval))
+chisq.test(table(app_state_2$Race, app_state_2$Approval))
+```
+
+```{r}
+app_state_2[app_state_2$Race!='Black', 'Race'] = 'Non-black'
+chisq.test(table(app_state_2$Race, app_state_2$Approval))
+```
+
+1) From the result of the above chi-square test, we can see that neither sex and race seem to be associated with the approval of Trump's performance. This comes as a surprise to us. Due to previous research, an article by Bloomberg (https://www.bloomberg.com/news/articles/2020-01-24/trump-s-approval-remains-far-higher-among-men-than-women) indicates that an 7 News/Emerson College poll of registered voters nationwide found that 57% of men approve Trump's job while only 38% women held the same thought.
+
+2) Although there seems to be a difference among race groups, yet the difference is not statistically significant. Since the difference seems most significant between black and non-black groups, we grouped other race groups together and run the chi-square test again. Though the p-value decrease much, yet it's still not substantial enough.
 
 
 
